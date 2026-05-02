@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 employs an interleaved hybrid attention configuration across Transformer layers. For V4-Pro: first 2 layers use HCA, remaining 59 layers interleave CSA and HCA. For V4-Flash: first 2 layers use pure sliding window attention, remaining 41 layers interleave CSA and HCA.

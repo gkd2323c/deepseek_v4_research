@@ -1,0 +1,2 @@
+### Claim
+HCA compresses KV cache of every $m'=128$ tokens into a single entry (no overlap), then performs dense Shared Key-Value MQA on all compressed entries. It uses the same low-rank query generation and Grouped Output Projection as CSA, plus a sliding window branch ($n_{win}=128$).

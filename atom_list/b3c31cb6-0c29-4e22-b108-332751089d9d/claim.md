@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 uses a Generative Reward Model (GRM) for hard-to-verify tasks, where the actor network natively functions as the GRM via joint RL optimization. This eliminates the need for separate scalar reward models, requires minimal human annotation, and fuses evaluative proficiency with generative capabilities for robust scoring.

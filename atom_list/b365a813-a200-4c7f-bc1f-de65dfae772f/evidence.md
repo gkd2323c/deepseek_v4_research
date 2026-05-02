@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1: "we change the activation function that computes the affinity scores from $\text{Sigmoid}(\cdot)$ into $\sqrt{\text{Softplus}(\cdot)}$." "we remove the constraint on the number of routing target nodes." Section 4.2: balance loss weight = 0.0001.

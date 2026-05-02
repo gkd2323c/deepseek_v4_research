@@ -1,0 +1,2 @@
+### Claim
+Muon (Liu et al., 2025) is an optimizer based on matrix orthogonalization via Newton-Schulz iterations. Two techniques enable scaling to large models: (1) adding weight decay, and (2) carefully adjusting per-parameter update scale. Scaling law experiments show ~2× computational efficiency compared to AdamW at compute-optimal training. The paper validates Muon by training Moonlight, a 3B/16B MoE model on 5.7T tokens.

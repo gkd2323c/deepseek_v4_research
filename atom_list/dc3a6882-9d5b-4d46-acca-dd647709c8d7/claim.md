@@ -1,0 +1,2 @@
+### Claim
+Hash Layers (Roller et al., 2021) use a fixed hash function of the input token to select different feedforward weights per token, eliminating the need for learned routing parameters, load balancing losses, or sophisticated assignment algorithms. Balanced random hashes on local input features outperform learned clustering approaches, making them competitive with Switch Transformers.

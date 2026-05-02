@@ -1,0 +1,2 @@
+### Claim
+V4-Pro-Max outperforms Opus-4.6-Max on Chinese white-collar tasks (63% non-loss rate), with primary strengths in Task Completion (98.32 vs 96.68) and Content Quality (83.32 vs 78.00). On Chinese creative writing, V4-Pro achieves 60.0% win rate in instruction following and 77.5% in writing quality vs Gemini-3.1-Pro.

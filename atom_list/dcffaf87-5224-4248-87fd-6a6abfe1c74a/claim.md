@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 implements end-to-end batch-invariant and deterministic kernels: a dual-kernel strategy for attention decoding (single-SM for full waves, multi-SM for partial waves with aligned accumulation order); DeepGEMM replacing cuBLAS for batch-invariant matrix multiplication; separate accumulation buffers per SM for deterministic attention backward; token pre-processing with buffer isolation for deterministic MoE backward.

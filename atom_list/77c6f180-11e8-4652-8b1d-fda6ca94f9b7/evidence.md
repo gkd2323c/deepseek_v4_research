@@ -1,0 +1,2 @@
+### Evidence
+Section 3.6.1: "For efficient KV cache management of DeepSeek-V4, we design corresponding strategies." Figure 6 illustrates the layout with state cache and classical KV cache. "Each cache block covers $\text{lcm}(m,m')$ original tokens, producing $k_1$ CSA compressed tokens and $k_2$ HCA compressed tokens." Section 3.6.2: three on-disk SWA strategies: Full SWA Caching, Periodic Checkpointing (parameter $p$), and Zero SWA Caching (recompute last $n_{win} \cdot L$ tokens from cached CSA/HCA).

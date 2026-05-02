@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 supports three reasoning modes: Non-think (fast, intuitive), Think High (conscious logical analysis), and Think Max (absolute maximum reasoning). Each mode is trained with distinct length penalties and context windows during RL (8K/128K/384K for Non-think/High/Max). Think Max uses a special injected system prompt and supports interleaved thinking that preserves full reasoning history across tool-call rounds.

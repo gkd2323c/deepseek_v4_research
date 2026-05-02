@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3.3: "for each query vector and KV entry vector used in CSA and HCA, we apply RoPE to its last 64 dimensions. Since the KV entries serve as both attention keys and values, the naive core attention outputs $o_{t,i}$ will carry absolute position embeddings... As a countermeasure, we also apply RoPE with position $-i$ on the last 64 dimensions of each $o_{t,i}$."

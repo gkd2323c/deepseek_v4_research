@@ -1,0 +1,2 @@
+### Evidence
+Table 1: V3.2-Base vs V4-Flash-Base vs V4-Pro-Base. Key results: MMLU-Pro: 65.5 / 68.3 / 73.5; MMLU: 87.8 / 88.7 / 90.1; SimpleQA verified: 28.3 / 30.1 / 55.2; LongBench-V2: 40.2 / 44.7 / 51.5; HumanEval: 62.8 / 69.5 / 76.8; MATH: 60.5 / 57.4 / 64.5. "V4-Flash-Base outperforms V3.2-Base across a wide array of benchmarks... V4-Pro-Base demonstrates near-universal dominance."

@@ -1,0 +1,2 @@
+### Evidence
+Section 2.2: defines $\mathcal{M} = \{M \in \mathbb{R}^{n \times n} \mid M\mathbf{1}_n = \mathbf{1}_n, \mathbf{1}_n^T M = \mathbf{1}_n^T, M \geq 0\}$. "This constraint ensures that the spectral norm of $\|B_l\|_2$ is bounded by 1." Sinkhorn-Knopp in Eq. (8): $M^{(t)} = \mathcal{T}_r(\mathcal{T}_c(M^{(t-1)}))$, $M^{(0)} = \exp(\tilde{B}_l)$. Dynamic parameterization in Eqs. (3)-(7). $n_{hc}=4$ (Section 4.2.1).

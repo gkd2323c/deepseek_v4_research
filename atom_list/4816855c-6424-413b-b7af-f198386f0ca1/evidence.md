@@ -1,0 +1,2 @@
+### Evidence
+From DeepSeek-R1 abstract (arXiv:2501.12948, published in Nature 645): "the reasoning abilities of LLMs can be incentivized through pure reinforcement learning (RL), obviating the need for human-labeled reasoning trajectories. The proposed RL framework facilitates the emergent development of advanced reasoning patterns, such as self-reflection, verification, and dynamic strategy adaptation... achieves superior performance on verifiable tasks such as mathematics, coding competitions, and STEM fields."

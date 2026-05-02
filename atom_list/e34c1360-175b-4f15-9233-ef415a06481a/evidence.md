@@ -1,0 +1,2 @@
+### Evidence
+Figure 11: overall win-rate 53% win, 10% tie, 37% lose vs Opus-4.6-Max (63% non-loss). Figure 12: Task Completion 98.32 vs 96.68, Content Quality 83.32 vs 78.00. Table 13: creative writing evaluation — Instruction Following win rate 60.03%, Writing Quality win rate 77.48% vs Gemini-3.1-Pro.

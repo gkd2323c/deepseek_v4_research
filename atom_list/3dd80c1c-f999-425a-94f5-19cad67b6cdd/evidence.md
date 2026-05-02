@@ -1,0 +1,2 @@
+### Evidence
+Section 4.2.2: V4-Flash trained on 32T tokens, V4-Pro on 33T tokens. Sequence length schedule: starts at 4K, gradually extends to 16K, 64K, and 1M. V4-Flash: "we first warmup the model with dense attention for the first 1T tokens, and introduce sparse attention at the sequence length of 64K." V4-Pro: "starts with a longer stage of dense attention." Two-stage method: "first set a short stage to warm up the lightning indexer in CSA, and then train the model with sparse attention for most of the training."

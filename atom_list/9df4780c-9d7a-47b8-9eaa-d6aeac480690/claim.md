@@ -1,0 +1,2 @@
+### Claim
+CSA and HCA apply Rotary Positional Embedding (RoPE) only to the last 64 dimensions of each query and KV entry vector. RoPE with position $-i$ is also applied to the last 64 dimensions of each core attention output $o_{t,i}$ to strip absolute position and preserve relative position embeddings.

@@ -1,0 +1,2 @@
+### Evidence
+From Muon abstract (arXiv:2502.16982): "the Muon optimizer based on matrix orthogonalization has demonstrated strong results in training small-scale language models. We identify two crucial techniques for scaling up Muon: (1) adding weight decay and (2) carefully adjusting the per-parameter update scale. Scaling law experiments indicate that Muon achieves ~2× computational efficiency compared to AdamW with compute optimal training. We introduce Moonlight, a 3B/16B-parameter MoE model trained with 5.7T tokens using Muon."

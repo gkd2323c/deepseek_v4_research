@@ -1,0 +1,2 @@
+### Claim
+The attention sink phenomenon (Xiao et al., 2024): initial tokens consistently receive disproportionately high attention scores acting as a "sink," even when semantically irrelevant. Preserving these sink tokens' KV states largely recovers the performance of window attention when sequence length exceeds cache size, enabling stable streaming to 4M+ tokens without fine-tuning.

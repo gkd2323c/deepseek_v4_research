@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3.4: "Taking BF16 GQA8 with a head dimension of 128 as the baseline... the KV cache size of DeepSeek-V4 series can be dramatically reduced to approximately 2% times of that baseline in the 1M-context setting." "we adopt a mixed storage format for KV entries: BF16 precision is used for the rotary positional embedding (RoPE) dimensions, while FP8 precision is applied to the remaining dimensions. This hybrid representation reduces the KV cache size by nearly half compared with pure BF16 storage."

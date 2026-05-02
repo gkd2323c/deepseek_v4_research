@@ -1,0 +1,2 @@
+### Claim
+Anticipatory Routing decouples synchronous updates of the backbone network and routing network: at step $t$, routing indices are computed using historical parameters $\theta_{t-\Delta t}$, pre-computed at step $t-\Delta t$. This is dynamically activated only when loss spikes are detected and reverts after stabilization, incurring ~20% overhead when active but negligible overall.

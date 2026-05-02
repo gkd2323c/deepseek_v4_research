@@ -1,0 +1,2 @@
+### Claim
+A fine-grained Expert Parallelism (EP) scheme splits experts into waves and fuses communication (Dispatch/Combine) with computation (Linear-1/Linear-2) into a single pipelined kernel, achieving 1.50~1.73x speedup for general inference and up to 1.96x for latency-sensitive RL rollouts. Communication can be fully hidden when $\frac{C}{B} \leq 2d$ (for V4-Pro, 6144 FLOPs/Byte).

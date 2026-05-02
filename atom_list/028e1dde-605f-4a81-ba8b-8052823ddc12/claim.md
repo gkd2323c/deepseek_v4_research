@@ -1,0 +1,2 @@
+### Claim
+V4-Pro-Max achieves SimpleQA 57.9%, Apex Shortlist 90.2%, Codeforces 3206 rating, HMMT 95.2%, and IMOAnswerBench 89.8%. It surpasses all prior open models on reasoning, matches GPT-5.4 on Codeforces, and trails Gemini-3.1-Pro by ~3-6 months on frontier reasoning. V4-Flash-Max achieves comparable reasoning to GPT-5.2/Gemini-3.0-Pro at lower cost.

@@ -1,0 +1,2 @@
+### Claim
+Training trillion-parameter MoE models presents significant stability challenges where loss spikes are consistently tied to outliers in MoE layers, and the routing mechanism itself appears to exacerbate outlier emergence.

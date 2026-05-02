@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3: "we design two efficient attention architectures — CSA and HCA — and employ their interleaved hybrid configuration." Section 4.2.1: V4-Pro "first two layers, we use HCA. For the subsequent layers, CSA and HCA are used in an interleaved manner." V4-Flash "first two layers, we use pure sliding window attention. For the subsequent layers, CSA and HCA are used in an interleaved manner."

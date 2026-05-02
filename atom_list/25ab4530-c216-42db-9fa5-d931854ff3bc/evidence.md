@@ -1,0 +1,2 @@
+### Evidence
+From DeepSeek-V3 abstract (arXiv:2412.19437): "To achieve efficient inference and cost-effective training, DeepSeek-V3 adopts Multi-head Latent Attention (MLA) and DeepSeekMoE architectures, which were thoroughly validated in DeepSeek-V2." The V4 paper explicitly uses V3.2 (with MLA) as the baseline for FLOPs and KV cache comparisons in Figure 1.

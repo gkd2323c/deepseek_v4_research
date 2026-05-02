@@ -1,0 +1,2 @@
+### Claim
+V4-Flash-Base outperforms V3.2-Base (37B activated) on most benchmarks despite having only 13B activated parameters, particularly in world knowledge (MMLU-Pro 68.3 vs 65.5) and long context (LongBench-V2 44.7 vs 40.2). V4-Pro-Base achieves comprehensive superiority over both with MMLU-Pro 73.5, SimpleQA 55.2, and LongBench-V2 51.5.

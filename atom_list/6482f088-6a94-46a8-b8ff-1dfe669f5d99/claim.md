@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 replaces the dense FFN layers in the first 3 Transformer blocks with MoE layers using Hash routing, which determines target experts by a predefined hash function of the input token ID.

@@ -1,0 +1,2 @@
+### Claim
+For mHC with doubly stochastic $B_l$, the spectral norm $\|B_l\|_2 \leq 1$ guarantees non-expansive signal propagation. Since $\mathcal{M}$ is closed under multiplication, stability holds for deep stacks of mHC. The Sigmoid-bounded input/output mappings ($A_l = \sigma(\tilde{A}_l)$, $C_l = 2\sigma(\tilde{C}_l)$) avoid signal cancellation risk.

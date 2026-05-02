@@ -1,0 +1,2 @@
+### Evidence
+Section 3.1: "each MoE layer can be decomposed mainly into four stages... the total time of communication is less than that of the computation." "We validated the fine-grained EP scheme on both NVIDIA GPUs and HUAWEI Ascend NPUs... achieves 1.50~1.73x speedup for general inference workloads, and up to 1.96x for latency-sensitive scenarios." For V4-Pro: "$\frac{C}{B} \leq 2d = 6144$ FLOPs/Byte." Open-sourced as MegaMoE in DeepGEMM.

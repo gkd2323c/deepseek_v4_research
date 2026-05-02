@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4-Flash is pre-trained on 32T tokens and V4-Pro on 33T tokens, with sequence length gradually extended from 4K to 16K, 64K, and 1M. Dense attention warmup is used for first 1T tokens (Flash) or a longer stage (Pro), then sparse attention is introduced at 64K length via a two-stage method (lightning indexer warmup then full sparse training).

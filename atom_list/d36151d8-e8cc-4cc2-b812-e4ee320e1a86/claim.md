@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4's KV cache vs BF16 GQA8 (head dim 128) baseline is approximately 2% in the 1M-context setting. A mixed storage format uses BF16 for RoPE dimensions and FP8 for remaining dimensions, reducing KV cache by nearly half vs pure BF16.

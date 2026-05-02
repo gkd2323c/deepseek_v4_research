@@ -1,0 +1,2 @@
+### Claim
+In the 1M-token context setting, DeepSeek-V4-Pro requires only 27% of the single-token inference FLOPs (measured in equivalent FP8 FLOPs) and 10% of the accumulated KV cache size compared with DeepSeek-V3.2. DeepSeek-V4-Flash achieves 10% FLOPs and 7% KV cache of V3.2.

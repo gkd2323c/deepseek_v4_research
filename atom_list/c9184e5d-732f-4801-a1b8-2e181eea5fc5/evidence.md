@@ -1,0 +1,2 @@
+### Evidence
+Section 4.2.3: "we found that decoupling the synchronous updates of the backbone network and the routing network significantly improves training stability." "we 'anticipatorily' compute and cache the routing indices to be used later at step $t$." "successfully bounding the additional wall-clock time overhead of Anticipatory Routing to approximately 20%." "we introduced an automatic detection mechanism that triggers a short rollback and activates Anticipatory Routing exclusively when a loss spike occurs."

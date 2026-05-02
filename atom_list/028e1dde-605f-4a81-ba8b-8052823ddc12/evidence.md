@@ -1,0 +1,2 @@
+### Evidence
+Table 6: comparison with closed/open models. Key results: SimpleQA 57.9 vs Opus-4.6 46.2 / Gemini-3.1 75.6; Apex Shortlist 90.2 vs Gemini 89.1; Codeforces 3206 vs GPT-5.4 3168; IMOAnswerBench 89.8 vs GPT-5.4 91.4. Section 5.3.2: "DeepSeek-V4-Pro-Max outperforms all prior open models across reasoning benchmarks." "trails state-of-the-art frontier models by approximately 3 to 6 months." Table 7: V4-Flash-Max achieves LiveCodeBench 91.6%, HMMT 94.8%.

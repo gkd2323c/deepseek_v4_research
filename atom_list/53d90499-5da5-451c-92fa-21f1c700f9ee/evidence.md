@@ -1,0 +1,2 @@
+### Evidence
+From DeepSeek-V3 abstract (arXiv:2412.19437): "DeepSeek-V3 adopts Multi-head Latent Attention (MLA) and DeepSeekMoE architectures... pioneers an auxiliary-loss-free strategy for load balancing and sets a multi-token prediction training objective... pre-train on 14.8 trillion diverse and high-quality tokens... requires only 2.788M H800 GPU hours... its training process is remarkably stable. Throughout the entire training process, we did not experience any irrecoverable loss spikes or perform any rollbacks."

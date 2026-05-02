@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 changes the MoE affinity score activation from $\text{Sigmoid}(\cdot)$ to $\sqrt{\text{Softplus}(\cdot)}$, removes the constraint on the number of routing target nodes, and uses auxiliary-loss-free load balancing with sequence-wise balance loss (weight 0.0001).

@@ -1,0 +1,2 @@
+### Claim
+Hyper-Connections (Zhu et al., 2024) present a general alternative to residual connections that addresses the seesaw effect between gradient vanishing and representation collapse. The method dynamically adjusts connection strength between features at different depths and rearranges layers, showing significant improvements over residual connections in LLM pre-training for both dense and sparse models.

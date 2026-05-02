@@ -1,0 +1,2 @@
+### Evidence
+Section 4.2.3: "Training trillion-parameter MoE models presents significant stability challenges. Empirically, we identified that the occurrence of spikes is consistently tied to outliers in the MoE layers, and the routing mechanism itself appears to exacerbate the emergence of these outliers."

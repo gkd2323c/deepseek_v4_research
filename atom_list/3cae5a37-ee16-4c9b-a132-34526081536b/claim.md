@@ -1,0 +1,2 @@
+### Claim
+mHC constrains the residual mapping matrix $B_l \in \mathbb{R}^{n_{hc} \times n_{hc}}$ to the manifold of doubly stochastic matrices $\mathcal{M}$ (Birkhoff polytope) via Sinkhorn-Knopp iterations ($t_{max}=20$), ensuring $\|B_l\|_2 \leq 1$ for non-expansive signal propagation. Parameters are dynamically generated from input (RMSNorm flattened) plus static biases with small-initialized gating factors. Input/output mappings use Sigmoid for non-negativity: $A_l = \sigma(\tilde{A}_l)$, $C_l = 2\sigma(\tilde{C}_l)$. Expansion factor $n_{hc}=4$.

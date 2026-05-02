@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3's Multi-head Latent Attention (MLA) compresses keys and values into a low-rank latent space, drastically reducing KV cache size during inference. This is the baseline attention mechanism that V4's CSA/HCA hybrid attention improves upon.

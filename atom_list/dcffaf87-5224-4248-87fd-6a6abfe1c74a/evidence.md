@@ -1,0 +1,2 @@
+### Evidence
+Section 3.3: "we implement end-to-end, bitwise batch-invariant, and deterministic kernels with minimal performance overhead." Attention: dual-kernel strategy with "the second kernel utilizes distributed shared memory within thread-block clusters." Matrix Multiplication: "we replace it end-to-end with DeepGEMM." MoE Backward: "we design a token order pre-processing mechanism within each single rank, combined with buffer isolation across multiple ranks."

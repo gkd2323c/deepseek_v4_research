@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3.3: "we employ the trick of attention sink (OpenAI, 2025; Xiao et al., 2024)." Eq. (27) defines the modified softmax. "This technique allows each query head to adjust its total attention scores to be not equal to 1, and even to be near 0."

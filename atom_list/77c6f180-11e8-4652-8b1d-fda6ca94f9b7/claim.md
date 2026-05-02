@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4's inference framework uses a heterogeneous KV cache layout: a state cache (fixed-size, per-request) for SWA and uncompressed tail tokens, and a classical KV cache with blocks covering $\text{lcm}(m,m')$ original tokens producing $k_1 = \text{lcm}(m,m')/m$ CSA and $k_2 = \text{lcm}(m,m')/m'$ HCA compressed tokens. On-disk storage supports three SWA strategies (Full Caching, Periodic Checkpointing, Zero Caching) with different storage-computation trade-offs.

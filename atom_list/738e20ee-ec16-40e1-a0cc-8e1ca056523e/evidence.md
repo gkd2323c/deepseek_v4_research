@@ -1,0 +1,2 @@
+### Evidence
+Section 2.4 and Algorithm 1: "We maintain the AdamW optimizer for the embedding module, the prediction head module, the static biases and gating factors of mHC modules, and the weights of all RMSNorm modules. All other modules are updated with Muon." Two-stage Newton-Schulz coefficients specified. Section 4.2.2: Muon momentum=0.95, weight_decay=0.1, update RMS scaled to 0.18. AdamW $\beta_1=0.9$, $\beta_2=0.95$, $\epsilon=10^{-20}$.

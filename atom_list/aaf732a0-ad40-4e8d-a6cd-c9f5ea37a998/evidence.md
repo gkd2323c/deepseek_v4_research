@@ -1,0 +1,2 @@
+### Evidence
+Section 3.4: "We apply FP4 (MXFP4) quantization to two components: (1) MoE expert weights... (2) the Query-Key (QK) path in the indexer of CSA." "our FP4-to-FP8 dequantization is lossless. This is because FP8 (E4M3) has 2 additional exponent bits compared with FP4 (E2M1)." "We empirically verify that current weights satisfy this condition." Section 5.2.1: "we directly use native FP4 weights during the rollout and inference phases."

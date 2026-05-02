@@ -1,0 +1,2 @@
+### Claim
+The quadratic computational complexity of the vanilla attention mechanism (Vaswani et al., 2017) creates a prohibitive bottleneck for ultra-long contexts and reasoning processes, fundamentally constraining further gains from test-time scaling and hindering exploration into long-horizon scenarios.

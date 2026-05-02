@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V4 series includes two MoE models: DeepSeek-V4-Pro (1.6T total, 49B activated, 61 layers, hidden dim 7168, 384 routed experts activating 6) and DeepSeek-V4-Flash (284B total, 13B activated, 43 layers, hidden dim 4096, 256 routed experts activating 6), both supporting 1M-token context.

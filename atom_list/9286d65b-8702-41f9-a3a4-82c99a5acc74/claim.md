@@ -1,0 +1,2 @@
+### Claim
+SwiGLU Clamping — clamping the linear component of SwiGLU to $[-10, 10]$ and capping the gate component at 10 — effectively eliminates outliers and stabilizes training without compromising performance.

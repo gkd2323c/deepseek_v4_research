@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3.2: "employs a larger compression rate $m'$ ($\gg m$) and does not perform overlapped compression." Eqs. (20)-(23) for compression with learnable positional biases. Eqs. (24)-(26) for low-rank MQA. For both V4-Pro and V4-Flash: $m'=128$.

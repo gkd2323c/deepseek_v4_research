@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-R1 demonstrated that reasoning capabilities can emerge in LLMs through pure reinforcement learning without human-labeled reasoning traces. The RL-trained model develops advanced reasoning patterns (self-reflection, verification, dynamic strategy adaptation), surpassing supervised learning baselines on math, coding, and STEM tasks. These emergent patterns can be distilled to smaller models.

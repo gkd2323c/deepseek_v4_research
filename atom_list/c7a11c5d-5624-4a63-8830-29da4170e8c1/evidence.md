@@ -1,0 +1,2 @@
+### Evidence
+From Hyper-Connections abstract (arXiv:2409.19606): "a simple yet effective method that can serve as an alternative to residual connections. This approach specifically addresses common drawbacks observed in residual connection variants, such as the seesaw effect between gradient vanishing and representation collapse. Theoretically, hyper-connections allow the network to adjust the strength of connections between features at different depths and dynamically rearrange layers... hyper-connections show significant performance improvements over residual connections."

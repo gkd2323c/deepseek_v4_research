@@ -1,0 +1,2 @@
+### Evidence
+Section 3.5.3: "we design a two-stage communication approach. In the first stage, each rank $i$ sends its last $m$ uncompressed KV entries to rank $i+1$. Then, rank $i+1$ compresses some of these received entries together with its local $s$ uncompressed KV entries, producing a fixed length of $s/m+1$ compressed entries, in which exist some padding entries. In the second stage, an all-gather operation across all CP ranks collects the locally compressed KV entries. Then, a fused select-and-pad operator reorganizes them into the full set of compressed KV entries."

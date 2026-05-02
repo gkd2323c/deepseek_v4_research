@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3 (671B total, 37B activated) pioneers two key techniques later inherited by V4: (1) Multi-head Latent Attention (MLA) for efficient KV cache during inference, and (2) an auxiliary-loss-free load balancing strategy for MoE training. It is pre-trained on 14.8T tokens requiring only 2.788M H800 GPU hours, and remarkably experienced no irrecoverable loss spikes throughout training.

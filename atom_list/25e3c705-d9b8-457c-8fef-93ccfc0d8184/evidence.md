@@ -1,0 +1,2 @@
+### Evidence
+From DeepSeek-V2 abstract (arXiv:2405.04434): "It comprises 236B total parameters, of which 21B are activated for each token... supports a context length of 128K tokens. DeepSeek-V2 adopts innovative architectures including Multi-head Latent Attention (MLA) and DeepSeekMoE. MLA guarantees efficient inference through significantly compressing the Key-Value (KV) cache into a latent vector... saves 42.5% of training costs, reduces the KV cache by 93.3%, and boosts the maximum generation throughput to 5.76 times."

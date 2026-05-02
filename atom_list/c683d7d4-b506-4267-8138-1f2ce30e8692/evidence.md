@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3.1: Eqs. (9)-(12) for compression. Lightning Indexer: Eqs. (13)-(17), index scores $I_{t,s} = \sum_{h} w_{t,h}^I \cdot \text{ReLU}(q_{t,h}^I \cdot K_s^{\text{IComp}})$. Shared KV MQA (Eqs. 18-19) and Grouped Output Projection. V4-Pro: $m=4$, top-$$k=1024$, $n_h=128$, $c=512$, $d_c=1536$, $g=16$, $d_g=1024$, $n_h^I=64$, $c_I=128$. V4-Flash: $m=4$, top-$$k=512$, $n_h=64$, $d_c=1024$, $g=8$, $d_g=1024$, $n_h^I=64$, $c_I=128$.

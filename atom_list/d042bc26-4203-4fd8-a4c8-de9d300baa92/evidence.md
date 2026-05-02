@@ -1,0 +1,2 @@
+### Evidence
+Section 5.1: "the mixed Reinforcement Learning (RL) stage was entirely replaced by On-Policy Distillation (OPD)." Section 5.1.1: "each model was sequentially optimized through an initial fine-tuning phase and subsequent Reinforcement Learning (RL) guided by domain-specific prompts and reward signals... we implemented the Group Relative Policy Optimization (GRPO) algorithm." Section 5.1.2: OPD objective defined in Eq. (29). "more than ten teacher models covering various domains are employed to distill a single student model."

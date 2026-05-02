@@ -1,0 +1,2 @@
+### Evidence
+Section 1 and Figure 1: "DeepSeek-V4-Pro attains only 27% of the single-token FLOPs and 10% of the KV cache size relative to DeepSeek-V3.2. DeepSeek-V4-Flash achieves only 10% of the single-token FLOPs and 7% of the KV cache size compared with DeepSeek-V3.2." Figure 1 plots single-token FLOPs showing V3.2 at ~3.7x higher than V4-Pro and ~9.8x higher than V4-Flash; accumulated KV cache showing V3.2 at ~9.5x larger than V4-Pro and ~13.7x larger than V4-Flash.

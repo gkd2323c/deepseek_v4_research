@@ -1,0 +1,2 @@
+### Claim
+FP4 (MXFP4) Quantization-Aware Training (QAT) is applied to MoE expert weights and the CSA indexer QK path. FP4-to-FP8 dequantization is lossless when the ratio between max and min scale factors of FP4 sub-blocks within each FP8 quantization block does not exceed a threshold (empirically satisfied). During RL rollout and inference, native FP4 weights are used directly.

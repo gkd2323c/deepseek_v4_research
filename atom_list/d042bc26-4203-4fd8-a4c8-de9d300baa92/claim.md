@@ -1,0 +1,2 @@
+### Claim
+Post-training uses a two-stage paradigm: (1) Specialist Training — independent domain experts (math, coding, agent, instruction following) are trained via SFT + GRPO with domain-specific rewards; (2) On-Policy Distillation (OPD) — 10+ teacher models are consolidated into a unified student via full-vocabulary reverse KL loss: $\mathcal{L}_{\text{OPD}}(\theta) = \sum_{i=1}^N w_i \cdot D_{KL}(\pi_\theta \| \pi_{E_i})$.

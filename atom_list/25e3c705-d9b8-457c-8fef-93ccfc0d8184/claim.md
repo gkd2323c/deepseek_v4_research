@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V2 (236B total, 21B activated, 128K context) introduced the two key architectures later used by V3 and V4: Multi-head Latent Attention (MLA) and DeepSeekMoE. MLA compresses KV cache into latent vectors (93.3% reduction), and DeepSeekMoE enables economical training via sparse computation (42.5% training cost saving vs DeepSeek 67B, 5.76x generation throughput).

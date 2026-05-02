@@ -1,0 +1,2 @@
+### Claim
+CSA compresses KV cache of every $m=4$ tokens into one entry via overlapping weighted compression (2m tokens per entry, net ratio $1/m$), applies DeepSeek Sparse Attention (DSA) via a Lightning Indexer that selects top-$k$ compressed KV entries using low-rank indexer queries with learnable head weights, and performs core attention as Shared Key-Value MQA with Grouped Output Projection. A sliding window branch ($n_{win}=128$) supplements local dependencies.

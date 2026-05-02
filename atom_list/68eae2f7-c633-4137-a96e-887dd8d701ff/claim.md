@@ -1,0 +1,2 @@
+### Claim
+A two-stage Contextual Parallelism (CP) scheme handles compressed attention: Stage 1 — each rank sends last $m$ uncompressed KV entries to rank $i+1$, which compresses them with local entries producing $s/m+1$ compressed entries (with padding). Stage 2 — all-gather collects locally compressed KV entries, then a fused select-and-pad operator reorganizes into full compressed KV entries of length $\text{cp\_size} \cdot s/m$, with padding at the tail.

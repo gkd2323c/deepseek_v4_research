@@ -1,0 +1,2 @@
+### Claim
+Both CSA and HCA employ attention sink with learnable sink logits $\{z'_1, ..., z'_{n_h}\}$, where for head $h$, $\exp(z'_h)$ is added to the softmax denominator: $s_{h,i,j} = \frac{\exp(z_{h,i,j})}{\sum_k \exp(z_{h,i,k}) + \exp(z'_h)}$, allowing each head to adjust total attention mass.

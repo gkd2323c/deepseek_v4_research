@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1: "compared with DeepSeek-V3, we replace the dense FFN layers in the initial several Transformer blocks with MoE layers that employ Hash routing (Roller et al., 2021)." Section 4.2.1: "use the Hash routing strategy for the first 3 MoE layers" for both V4-Flash and V4-Pro.

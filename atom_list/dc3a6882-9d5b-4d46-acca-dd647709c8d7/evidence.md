@@ -1,0 +1,2 @@
+### Evidence
+From Hash Layers abstract (arXiv:2106.04426): "we modify the feedforward layer to hash to different sets of weights depending on the current token... This procedure either outperforms or is competitive with learning-to-route mixture-of-expert methods such as Switch Transformers and BASE Layers, while requiring no routing parameters or extra terms in the objective function such as a load balancing loss... balanced and random hashes focused on the most local features work best."

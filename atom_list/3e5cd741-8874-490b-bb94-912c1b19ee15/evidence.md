@@ -1,0 +1,2 @@
+### Evidence
+Abstract and Section 4.2.1: V4-Pro has 61 layers, hidden dim 7168, 384 routed experts, 1 shared expert, 6 activated per token. V4-Flash has 43 layers, hidden dim 4096, 256 routed experts, 1 shared expert, 6 activated per token. Both support 1M-token contexts natively.

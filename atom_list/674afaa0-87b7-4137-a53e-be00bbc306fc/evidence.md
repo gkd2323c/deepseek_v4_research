@@ -1,0 +1,2 @@
+### Evidence
+From Attention Sink abstract (arXiv:2309.17453): "We observe an interesting phenomenon, namely attention sink, that keeping the KV of initial tokens will largely recover the performance of window attention... the emergence of attention sink is due to the strong attention scores towards initial tokens as a 'sink' even if they are not semantically important... StreamingLLM can enable Llama-2, MPT, Falcon, and Pythia to perform stable and efficient language modeling with up to 4 million tokens and more."

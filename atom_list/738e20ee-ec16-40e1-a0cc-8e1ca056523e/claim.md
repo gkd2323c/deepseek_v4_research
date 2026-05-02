@@ -1,0 +1,2 @@
+### Claim
+Muon optimizer with hybrid Newton-Schulz: 8 iterations with $(a,b,c) = (3.4445, -4.7750, 2.0315)$ for rapid convergence, then 2 iterations with $(a,b,c) = (2, -1.5, 0.5)$ to stabilize singular values at 1. Uses Nesterov trick, weight decay $\lambda=0.1$, momentum $\mu=0.95$, update RMS scaled to 0.18. AdamW retained for embedding, prediction head, mHC static biases/gating factors, and RMSNorm weights ($\beta_1=0.9$, $\beta_2=0.95$, $\epsilon=10^{-20}$, weight_decay=0.1).
