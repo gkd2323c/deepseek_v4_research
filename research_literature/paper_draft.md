@@ -135,7 +135,7 @@ For this study, the atom graph contains:
 | Papers analyzed | 8 (5 full-text, 2 abstract, 1 main) |
 | Verified atoms | 5 |
 
-**Atom type distribution**: 8 fact (12%), 40 method (61%), 1 theorem (2%), 17 verification (26%).
+**Atom type distribution**: 10 fact (14%), 44 method (61%), 1 theorem (1%), 17 verification (24%).
 
 **Relation type distribution**: 25 motivates (20%), 38 derives (31%), 55 validates (45%), 3 formalizes (2%), 2 contradicts (2%).
 
@@ -198,7 +198,23 @@ The hybrid configuration interleaves CSA and HCA across layers, with a sliding w
 
 **Origin tracing**: V2 introduced MLA with $d_c=512$. V3 inherited MLA unchanged. V4's CSA/HCA represents a fundamental redesign: instead of projecting to a fixed low-rank space (MLA), it dynamically selects which compressed entries to attend to (CSA) while maintaining a heavily compressed global view (HCA).
 
-### 3.3 Manifold-Constrained Hyper-Connections (mHC)
+### 3.3 Conditional Memory: Engram Module
+
+V4 introduces a novel **Engram module** that extends sparsity beyond MoE's conditional computation to **conditional memory** — using scalable hash lookup for static knowledge retrieval at $O(1)$ time complexity.
+
+**Core idea**: Modern LLMs waste significant computation on reconstructing static facts (named entities, factual associations, idioms) through dense deep computation. Engram offloads up to 27 billion parameters of static knowledge into a sparse hash lookup table, freeing the main network's computation depth for dynamic reasoning.
+
+**Technical mechanism**: Based on modernized N-gram embedding technology, Engram uses a high-dimensional sparse embedding table with hash-based retrieval. The key theoretical insight is a **U-shaped scaling law** between static memory capacity and neural network computation — there exists an optimal allocation point where separating static knowledge from dynamic reasoning maximizes overall capability.
+
+**Empirical results**: Engram-equipped models show improvements beyond knowledge retrieval tasks:
+- BBH (reasoning): +5.0 points
+- HumanEval (code): +3.0 points
+
+This demonstrates that separating static memory produces **structural dividends** — the freed computation depth can be redirected to more complex logical reasoning, and long-context "needle-in-a-haystack" precision is significantly enhanced.
+
+**Origin tracing**: This represents a new axis of sparsity for LLMs, complementary to MoE's conditional computation. While MoE selectively activates parameters for different inputs, Engram selectively retrieves knowledge from external memory, enabling a cleaner separation between "what the model knows" and "how the model reasons."
+
+### 3.4 Manifold-Constrained Hyper-Connections (mHC)
 
 Standard residual connections are a special case of Hyper-Connections (HC) with expansion rate $n=1$. HC generalizes this to $n$ hidden vectors with learnable connection weights, where $n=4$ is empirically optimal. HC eliminates training spikes and improves representation diversity (lower inter-layer cosine similarity).
 
@@ -208,9 +224,9 @@ $$\mathcal{M} = \{M \in \mathbb{R}^{n \times n} \mid M\mathbf{1}_n = \mathbf{1}_
 
 This ensures $\|B_l\|_2 \leq 1$, making the residual transformation non-expansive. The projection is achieved via Sinkhorn-Knopp iterations ($t_{max}=20$). Parameters are dynamically generated from input via RMSNorm + linear transform + Sigmoid for non-negativity.
 
-**Origin tracing**: Standard residual → HC (Zhu et al., 2024, ICLR 2025) → mHC. The key contribution is the Birkhoff constraint, which HC leaves unconstrained.
+**Origin tracing**: Standard residual → HC (Zhu et al., 2024, ICLR 2025) → mHC (arXiv:2512.24880). The key contribution is the Birkhoff constraint, which HC leaves unconstrained.
 
-### 3.4 Muon Optimizer with Hybrid Newton-Schulz
+### 3.5 Muon Optimizer with Hybrid Newton-Schulz
 
 Muon (Keller et al., 2024) updates matrix parameters via orthogonalized gradient momentum using Newton-Schulz iteration. The standard Newton-Schulz coefficients $(a,b,c) = (3.4445, -4.7750, 2.0315)$ drive rapid convergence toward the orthogonal polar factor of the momentum matrix.
 
@@ -218,13 +234,13 @@ Muon Scalable (Liu et al., 2025) identifies two techniques for scaling: weight d
 
 V4 modifies the Newton-Schulz scheme: **8 iterations with fast coefficients** $(3.4445, -4.7750, 2.0315)$ followed by **2 iterations with stable coefficients** $(2, -1.5, 0.5)$. Our experiments show this hybrid is necessary: the fast coefficients alone oscillate and never converge, while the stable phase ensures singular values settle at 1.
 
-### 3.5 MoE Activation: Sigmoid → Sqrt(Softplus)
+### 3.6 MoE Activation: Sigmoid → Sqrt(Softplus)
 
 V3 uses $\text{Sigmoid}(\cdot)$ to compute MoE affinity scores. V4 changes this to $\sqrt{\text{Softplus}(\cdot)}$.
 
 **Motivation**: Sigmoid saturates at 1.0 with vanishing gradients for large inputs. At V4's scale (384 routed experts), outlier affinity scores cause Sigmoid's gradient to vanish, creating "dead experts" that receive no learning signal. Sqrt(Softplus) grows as $\sqrt{x}$ with gradient $\sim 1/(2\sqrt{x})$ that never vanishes.
 
-### 3.6 Post-Training: From R1 to OPD
+### 3.7 Post-Training: From R1 to OPD
 
 V4's post-training builds directly on R1's findings:
 
@@ -242,6 +258,16 @@ where $N$ is the number of teacher models, $w_i$ is the weight for teacher $E_i$
 - **Think Max**: Maximum reasoning depth with interleaved thinking across tool-call rounds (384K context window)
 
 These modes allow users to trade off between response speed and reasoning depth, with harder problems naturally receiving more thinking tokens in Think Max mode.
+
+### 3.8 Training Infrastructure
+
+V4's training infrastructure includes several innovations that enable efficient trillion-parameter training:
+
+**TileLang**: A domain-specific language (DSL) for GPU kernel development that uses "Tile" (rectangular slices of multidimensional arrays) as the core programming primitive. TileLang provides Python-friendly APIs for GPU resource allocation (shared memory, register scheduling), enabling researchers to implement complex kernels in ~80 lines of Python (vs 90%+ reduction from CUDA). It integrates Z3 SMT solver for formal integer analysis of tensor indexing, ensuring correctness during auto-vectorization and memory conflict elimination.
+
+**Fine-Grained Expert Parallelism**: A wave-based scheduling scheme that fuses Dispatch/Combine communication with Linear-1/Linear-2 computation into single pipelined kernels. This achieves 1.50-1.73× speedup for general inference and up to 1.96× for latency-sensitive RL rollouts, with communication fully hidden when $\frac{C}{B} \leq 2d$ (6144 FLOPs/Byte for V4-Pro).
+
+**DeepSec Sandbox**: An elastic computing sandbox cluster for agentic task evaluation, supporting Function Call, container, microVM, and fullVM execution bases. It uses 3FS distributed filesystem with EROFS read-only image compression and overlaybd copy-on-write layers for near-zero cold start latency.
 
 ---
 
@@ -526,35 +552,43 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 [6] Zhu, D., et al. (2024). Hyper-Connections. *ICLR 2025. arXiv:2409.19606*.
 
-[7] Liu, J., et al. (2025). Muon is Scalable for LLM Training. *arXiv:2502.16982*.
+[7] DeepSeek-AI. (2025). mHC: Manifold-Constrained Hyper-Connections. *arXiv:2512.24880*.
 
-[8] Keller, J., et al. (2024). Muon: An optimizer for hidden layers. *Blog post*.
+[8] Liu, J., et al. (2025). Muon is Scalable for LLM Training. *arXiv:2502.16982*.
 
-[9] Roller, S., et al. (2021). Hash Layers For Large Sparse Models. *NeurIPS*.
+[9] Keller, J., et al. (2024). Muon: An optimizer for hidden layers. *Blog post*.
 
-[10] Xiao, G., et al. (2024). Efficient Streaming Language Models with Attention Sinks. *ICLR*.
+[10] DeepSeek-AI. (2025). Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models. *arXiv:2601.07372*.
 
-[11] Shazeer, N., et al. (2017). Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer. *ICLR*.
+[11] DeepSeek-AI. (2025). TileLang: Bridge Programmability and Performance in Modern Neural Kernels. *OpenReview*.
 
-[12] Fedus, W., et al. (2022). Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity. *JMLR*.
+[12] Roller, S., et al. (2021). Hash Layers For Large Sparse Models. *NeurIPS*.
 
-[13] Gu, A., & Dao, T. (2023). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. *arXiv:2312.00752*.
+[13] Xiao, G., et al. (2024). Efficient Streaming Language Models with Attention Sinks. *ICLR*.
 
-[14] Liu, H., et al. (2023). Ring Attention with Blockwise Transformers for Near-Infinite Context. *arXiv:2310.01889*.
+[14] Shazeer, N., et al. (2017). Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer. *ICLR*.
 
-[15] Zhang, S., et al. (2022). OPT: Open Pre-trained Transformer Language Models. *arXiv:2205.01068*.
+[15] Fedus, W., et al. (2022). Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity. *JMLR*.
 
-[16] Chowdhery, A., et al. (2023). PaLM: Scaling Language Modeling with Pathways. *JMLR*.
+[16] Gu, A., & Dao, T. (2023). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. *arXiv:2312.00752*.
 
-[17] Katharopoulos, A., et al. (2020). Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention. *ICML*.
+[17] Liu, H., et al. (2023). Ring Attention with Blockwise Transformers for Near-Infinite Context. *arXiv:2310.01889*.
 
-[18] Child, R., et al. (2019). Generating Long Sequences with Sparse Transformers. *arXiv:1904.10509*.
+[18] Zhang, S., et al. (2022). OPT: Open Pre-trained Transformer Language Models. *arXiv:2205.01068*.
 
-[19] Auer, S., et al. (2023). Towards an Open Research Knowledge Graph. *International Journal on Digital Libraries*.
+[19] Chowdhery, A., et al. (2023). PaLM: Scaling Language Modeling with Pathways. *JMLR*.
 
-[20] Wei, J., et al. (2020). Neural Natural Language Inference Models Partially Embed Theories of Lexical Pragmatics. *EMNLP*.
+[20] Katharopoulos, A., et al. (2020). Transformers are RNNs: Fast Autoregressive Transformers with Linear Attention. *ICML*.
 
-[21] Thorne, J., et al. (2018). FEVER: a Large-scale Dataset for Fact Extraction and VERification. *NAACL*.
+[21] Child, R., et al. (2019). Generating Long Sequences with Sparse Transformers. *arXiv:1904.10509*.
+
+[22] Auer, S., et al. (2023). Towards an Open Research Knowledge Graph. *International Journal on Digital Libraries*.
+
+[23] Wei, J., et al. (2020). Neural Natural Language Inference Models Partially Embed Theories of Lexical Pragmatics. *EMNLP*.
+
+[24] Thorne, J., et al. (2018). FEVER: a Large-scale Dataset for Fact Extraction and VERification. *NAACL*.
+
+[25] NIST CAISI. (2026). CAISI Evaluation of DeepSeek V4 Pro. *National Institute of Standards and Technology*.
 
 ---
 
