@@ -71,14 +71,32 @@
 
 ## 下载状态
 
-| # | 论文 | 文件 | 大小 | 状态 |
-|---|---|---|---|---|
-| 1 | DeepSeek-V3 | `DeepSeek-V3.pdf` | 1.8M | ✅ 已下载 |
-| 2 | DeepSeek-V2 | `DeepSeek-V2.pdf` | 1.6M | ✅ 已下载 |
-| 3 | DeepSeek-R1 | `DeepSeek-R1.pdf` | 4.9M | ✅ 已下载 |
-| 4 | Hash Layers (Roller 2021) | `Hash_Layers_Roller2021.pdf` | 363K | ✅ 已下载 |
-| 5 | Attention Sink (Xiao 2024) | `Attention_Sink_Xiao2024.pdf` | 17M | ✅ 已下载 |
-| 6 | Hyper-Connections (Zhu 2025) | — | — | 🔍 待定位 |
+| # | 论文 | 文件 | 大小 | PDF | 原子 |
+|---|---|---|---|---|---|
+| 1 | DeepSeek-V3 | `DeepSeek-V3.pdf` | 1.8M | ✅ | ✅ 摘要 |
+| 2 | DeepSeek-V2 | `DeepSeek-V2.pdf` | 1.6M | ✅ | ✅ 摘要 |
+| 3 | DeepSeek-R1 | `DeepSeek-R1.pdf` | 4.9M | ✅ | ✅ 摘要 |
+| 4 | Hash Layers (Roller 2021) | `Hash_Layers_Roller2021.pdf` | 363K | ✅ | ✅ 摘要 |
+| 5 | Attention Sink (Xiao 2024) | `Attention_Sink_Xiao2024.pdf` | 17M | ✅ | ✅ 摘要 |
+| 6 | Hyper-Connections (Zhu 2024) | `Hyper-Connections_Zhu2024.pdf` | 7.1M | ✅ | ✅ 全文 (7 atoms) |
+| 7 | Muon Scalable (Liu 2025) | `Muon_Scalable_Liu2025.pdf` | 2.0M | ✅ | ✅ 全文 (5 atoms) |
+
+## 图统计
+
+- 原始 V4 原子: 29
+- 浅层引用原子 (摘要): 8
+- 深层引用原子 (HC全文 + Muon全文): 12
+- 总计: **49 atoms, 80 relations, 0 orphans**
+
+## 验证状态
+
+| 方案 | 原子 | 状态 |
+|------|------|------|
+| Plan 02 — FP4 Lossless | `aaf732a0` | ✅ proven (100% bitwise) |
+| Plan 01 — KV Cache | `b390dc6d` | ✅ proven (7.2%, order-of-magnitude confirmed) |
+| Plan 03 — Muon NS | `738e20ee` | 🔲 pending |
+| Plan 04 — SwiGLU | `9286d65b` | 🔲 pending |
+| Plan 05 — AR | `c9184e5d` | 🔲 pending |
 | 7 | Muon Optimizer (Keller) | — | — | 🔍 待定位 |
 
 ## 图统计

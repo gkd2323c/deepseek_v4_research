@@ -5,17 +5,22 @@
 ## 项目概览
 
 ```
-37 atoms · 53 relations · 0 orphans
+49 atoms · 80 relations · 0 orphans
 ├── 29 V4 内部原子 (fact:3  method:18  theorem:1  verification:7)
-└──  8 跨引用原子 (fact:5  method:3)
+└── 20 跨引用原子 (8 浅层摘要 + 12 深层全文解析)
+     ├── 7 HC 论文 (Zhu 2024, ICLR 2025)
+     ├── 5 Muon 论文 (Liu 2025)
+     └── 8 其他引用 (V2/V3/R1/Hash/AttnSink)
 ```
+
+✅ 2 atoms proven by independent verification
 
 ### 核心研究问题
 
-1. **混合注意力机制（CSA + HCA）** 能否真正实现论文声称的 FLOPs/KV Cache 效率？
-2. **FP4 QAT "Lossless Dequantization"** 在什么条件下成立？
-3. **Muon 混合 Newton-Schulz 迭代** 是否比标准方案收敛更快？
-4. **SwiGLU Clamping + Anticipatory Routing** 在 MoE 训练中的稳定性效果是否可复现？
+1. **混合注意力机制（CSA + HCA）** 能否真正实现论文声称的 FLOPs/KV Cache 效率？→ ✅ **KV Cache 分析已验证** (7.2% vs 论文 10%)
+2. **FP4 QAT "Lossless Dequantization"** 在什么条件下成立？→ ✅ **已验证** (同 scale: 100% bitwise lossless)
+3. **Muon 混合 Newton-Schulz 迭代** 是否比标准方案收敛更快？→ 🔲 待验证 (Plan 03)
+4. **SwiGLU Clamping + Anticipatory Routing** 在 MoE 训练中的稳定性效果是否可复现？→ 🔲 待验证 (Plan 04/05)
 
 ## 项目结构
 
@@ -32,13 +37,18 @@ deepseek_v4/
 │   ├── Hash_Layers_Roller2021.pdf     # Hash Routing (363K)
 │   └── Attention_Sink_Xiao2024.pdf    # Attention Sink (17M)
 │
-├── atom_list/                         # 37 个原子
+├── atom_list/                         # 49 个原子
 │   └── <atom-id>/
 │       ├── claim.md                   # 声明
 │       ├── evidence.md                # 证据
 │       └── evidence_assessment.md     # 证据评估
 │
-├── verification_plans/                # 5 份独立验证方案
+├── experiments/                       # 验证实验脚本
+│   ├── fp4_lossless_verify.py          # Plan 02: FP4 数值验证 ✅
+│   ├── flops_kvcache_analysis.py       # Plan 01: FLOPs 分析
+│   └── kvcache_analysis_v2.py          # Plan 01: KV Cache 分析 ✅
+│
+├── verification_plans/                # 5 份独立验证方案 (2/5 已执行)
 │   ├── README.md                      # 总览
 │   ├── plan_01_flops_kvcache.md       # FLOPs/KV Cache 分析
 │   ├── plan_02_fp4_lossless.md        # FP4 无损反量化
@@ -56,10 +66,10 @@ deepseek_v4/
 
 | 关系类型 | 含义 | 数量 |
 |----------|------|------|
-| `motivates` | 背景/问题驱动下游声明 | 10 |
-| `derives` | 方法从上游内容派生/构建 | 14 |
-| `validates` | 实验验证上游方法/定理 | 25 |
-| `formalizes` | 理论形式化上游声明 | 1 |
+| `motivates` | 背景/问题驱动下游声明 | 15 |
+| `derives` | 方法从上游内容派生/构建 | 24 |
+| `validates` | 实验验证上游方法/定理 | 38 |
+| `formalizes` | 理论形式化上游声明 | 2 |
 | `contradicts` | 逻辑或经验冲突 | 1 |
 
 ### 关键关系链
@@ -132,13 +142,13 @@ V3: Zero Spike ──contradicts──→ V4: Stability Challenges
 
 5 份方案按优先级排列：
 
-| 优先级 | 方案 | 目标原子 | 难度 | 周期 |
+| 优先级 | 方案 | 目标原子 | 难度 | 状态 |
 |--------|------|----------|------|------|
-| 🔴 P1 | FLOPs/KV Cache 理论验证 | `b390dc6d` | ⭐⭐ | 1-2周 |
-| 🔴 P2 | FP4 Lossless 数值验证 | `aaf732a0` | ⭐ | 3-5天 |
-| 🔴 P3 | Muon Newton-Schulz 收敛 | `738e20ee` | ⭐⭐ | 1-2周 |
-| 🟡 P4 | SwiGLU Clamping 消融 | `9286d65b` | ⭐⭐⭐ | 2-3周 |
-| 🟡 P5 | Anticipatory Routing | `c9184e5d` | ⭐⭐⭐⭐ | 3-4周 |
+| 🔴 P1 | FLOPs/KV Cache 理论验证 | `b390dc6d` | ⭐⭐ | ✅ proven |
+| 🔴 P2 | FP4 Lossless 数值验证 | `aaf732a0` | ⭐ | ✅ proven |
+| 🔴 P3 | Muon Newton-Schulz 收敛 | `738e20ee` | ⭐⭐ | 🔲 pending |
+| 🟡 P4 | SwiGLU Clamping 消融 | `9286d65b` | ⭐⭐⭐ | 🔲 pending |
+| 🟡 P5 | Anticipatory Routing | `c9184e5d` | ⭐⭐⭐⭐ | 🔲 pending |
 
 ## 使用方式
 
