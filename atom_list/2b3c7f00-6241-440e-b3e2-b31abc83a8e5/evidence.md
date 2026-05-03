@@ -1,0 +1,2 @@
+### Evidence
+Figure 2: full pipeline diagram. Section 3.2: cold-start data from R1-Zero with human refinement. Section 3.2.2: second RL with Reward = Reward_reasoning + Reward_general + Reward_language. Table 3: stage-by-stage results. Table 8: R1 vs o1-1217 — AIME 79.8 vs 79.2, MATH-500 97.3 vs 96.4.

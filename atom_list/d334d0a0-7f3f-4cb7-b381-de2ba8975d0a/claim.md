@@ -1,0 +1,2 @@
+### Claim
+R1 adaptively scales test-time compute based on problem difficulty: simple problems use <7000 thinking tokens, hard problems use >18000 tokens. This is emergent from RL training, not explicitly programmed. Non-reasoning models (GPT-4o) use ~711 tokens regardless of difficulty and achieve only 24.7% on competition math vs R1's 61.8%. Majority voting fails to close the gap: GPT-4o with 64 samples only reaches 13.4% on AIME vs R1's 79.8%.

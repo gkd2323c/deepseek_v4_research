@@ -1,0 +1,2 @@
+### Evidence
+Section G.2: PRM "three main limitations" and MCTS challenges. Section G.1: "smaller-scale models, specifically a 7B dense model and a 16B Mixture-of-Experts (MoE) model... consistently failed to yield meaningful improvements on AIME." "we transitioned to larger-scale models... With these more capable architectures, we finally observed substantial performance gains." Table 16: Qwen2.5-32B-Zero (RL) 47% AIME vs R1-Distill-Qwen-32B 72.6%.

@@ -1,0 +1,2 @@
+### Claim
+R1 distills reasoning into smaller models via 800K samples from R1. Key finding: distillation >> direct RL for small models. R1-Distill-Qwen-1.5B (1.5B params) surpasses GPT-4o on MATH-500 (83.9% vs 74.6%). R1-Distill-Qwen-32B achieves AIME 72.6% vs Qwen2.5-32B-Zero (RL) 47%. This demonstrates reasoning capabilities can be transferred to much smaller models, but scaling beyond human intelligence requires larger base models + more RL.

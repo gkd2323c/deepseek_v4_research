@@ -1,0 +1,2 @@
+### Evidence
+Section 2: "we bypass the conventional supervised fine-tuning (SFT) phase before RL training." "This design choice stems from our hypothesis that human-defined reasoning patterns may limit model exploration." Figure 1(a): AIME pass@1 from 15.6% to 77.9%. Figure 1(b): response length increases throughout training. Table 2: "aha moment" with "wait" word usage. Section 2.3: "rather than explicitly teaching the model how to solve a problem, we simply provide it with the right incentives."

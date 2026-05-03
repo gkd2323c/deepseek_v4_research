@@ -1,0 +1,2 @@
+### Claim
+Key failure modes discovered in R1 development: (1) Process Reward Model (PRM) — hard to define fine-grained steps, hard to verify intermediate steps, leads to reward hacking; (2) MCTS — token generation has exponentially larger search space than chess, value model training is inherently difficult, cannot iteratively improve via self-search; (3) Small models (7B/16B MoE) fail to leverage long CoT — tendency toward repetition; only 32B+ models succeed.

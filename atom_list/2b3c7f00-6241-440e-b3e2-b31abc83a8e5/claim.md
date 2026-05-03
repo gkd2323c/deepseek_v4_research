@@ -1,0 +1,2 @@
+### Claim
+The multi-stage R1 pipeline: (1) R1-Zero pure RL → (2) Cold-start SFT with thousands of human-refined CoT → (3) First RL with reasoning + language consistency rewards → (4) Rejection sampling SFT with 600K reasoning + 200K non-reasoning samples → (5) Second RL with mixed reasoning/general data. Final R1 achieves AIME 79.8%, MATH-500 97.3%, Codeforces 96.3%ile.

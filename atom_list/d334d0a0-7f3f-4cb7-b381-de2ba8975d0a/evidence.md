@@ -1,0 +1,2 @@
+### Evidence
+Figure 18: thinking tokens scale with problem difficulty. Section E.4: "the model adaptively adjusts its computational effort based on problem difficulty." "non-reasoning models can also scale test-time compute with traditional methods like majority voting, but those methods fail to close the performance gap." "majority voting across 64 samples only increases GPT-4o's solve rate from 9.3% to 13.4%."

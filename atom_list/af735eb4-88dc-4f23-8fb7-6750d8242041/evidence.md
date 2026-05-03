@@ -1,0 +1,2 @@
+### Evidence
+Section F: "models distilled from high-quality teacher outputs consistently outperform those trained directly on human-generated data." Table 15: R1-Distill-Qwen-1.5B MATH-500 83.9% vs GPT-4o 74.6%. Table 16: Distill-32B 72.6% vs RL-32B-Zero 47.0%. Section F: "distillation strategies are both economical and effective, advancing beyond the boundaries of human intelligence may still require more powerful base models and larger-scale reinforcement learning."

@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-R1-Zero is trained via pure RL (GRPO) on V3-Base without any SFT before RL. Reward is solely based on correctness of final predictions against ground-truth, without constraining reasoning process. The model naturally develops sophisticated reasoning behaviors: self-reflection, verification, dynamic strategy adaptation. AIME accuracy jumps from 15.6% to 77.9% (cons@16: 86.7%). Response length steadily increases from ~1000 to ~20000 tokens during training.
