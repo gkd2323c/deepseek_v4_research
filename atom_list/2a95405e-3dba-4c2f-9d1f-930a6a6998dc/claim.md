@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3 uses GRPO (Group Relative Policy Optimization) for RL, which foregoes the critic model. For each question $q$, samples group of outputs $\{o_1,...,o_G\}$, computes advantages from group scores: $A_i = (r_i - \text{mean}) / \text{std}$. The objective combines clipped surrogate loss with KL divergence to reference model. Combined with rule-based RM (for math/code) and model-based RM (for free-form), plus self-rewarding via constitutional AI approach.

@@ -1,0 +1,2 @@
+### Evidence
+Section 5.1: reasoning data generated via "expert model" trained with SFT+RL, using <problem, original response> and <system prompt, problem, R1 response> formats. Section 5.4.1, Table 9: R1 distillation on V2.5 improves LiveCodeBench 31.1→37.4, MATH-500 74.6→83.2 but increases average length 718→783 (code) and 769→1510 (math). "we carefully selected optimal settings for DeepSeek-V3 in distillation."

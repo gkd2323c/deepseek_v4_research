@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3's MLA compresses keys and values into a low-rank latent vector $c_t^{KV} \in \mathbb{R}^{d_c}$ via down-projection $W^{DKV}$, then up-projects to key/value heads. Only $c_t^{KV}$ and decoupled RoPE key $k_t^R$ are cached during generation (not full K/V). Query also uses low-rank compression ($c_t^Q \in \mathbb{R}^{d_c'}$) to reduce training activation memory. For V3: $d_c=512$, $d_c'=1536$, $n_h=128$, $d_h=128$, $d_h^R=64$.

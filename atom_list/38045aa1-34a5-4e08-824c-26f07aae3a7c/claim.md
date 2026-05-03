@@ -1,0 +1,2 @@
+### Claim
+V3's SFT uses 1.5M instances spanning reasoning (math/code/logic from R1-generated data) and non-reasoning domains. Reasoning data uses expert models trained via SFT+RL pipeline, generating two types of samples: original response and R1 response with reflection/verification system prompt. Rejection sampling after RL produces concise but accurate data. Key finding: R1 distillation significantly improves benchmarks but increases response length, requiring careful balance.

@@ -1,0 +1,2 @@
+### Evidence
+Abstract: "we did not experience any irrecoverable loss spikes or perform any rollbacks." Table 1: total cost 2.788M H800 GPU hours ($5.576M). Section 3.2.1: DualPipe achieves "near-zero all-to-all communication overhead." Table 2: DualPipe bubble formula $(PP/2-1)(F\&B+B-3W)$. Section 3.2.3: memory optimizations (RMSNorm recomputation, EMA on CPU, shared embedding for MTP).

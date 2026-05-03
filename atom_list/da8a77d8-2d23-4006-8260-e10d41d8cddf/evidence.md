@@ -1,0 +1,2 @@
+### Evidence
+Section 3.3, Figure 6: mixed precision framework. Section 3.3.2: fine-grained quantization (Figure 7a), FP32 accumulation via CUDA cores (Figure 7b, $N_C=128$), E4M3 on all tensors, online quantization. Appendix B.1: "the relative loss error of our FP8-training model remains consistently below 0.25%." Appendix B.2: block-wise quantization of activation gradients causes divergence at 300B tokens.

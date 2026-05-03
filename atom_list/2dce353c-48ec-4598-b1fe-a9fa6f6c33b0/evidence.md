@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1.1, Eqs. (1)-(11): MLA core mechanism. $c_t^{KV} = W^{DKV} h_t$ (Eq.1), key/value up-projection in Eqs.(2)-(5), query compression in Eqs.(6)-(9). "only the blue-boxed vectors (i.e., $c_t^{KV}$ and $k_t^R$) need to be cached during generation, which results in significantly reduced KV cache." V3 model config (Section 4.2): $n_h=128$, $d_h=128$, $d_c=512$, $d_c'=1536$, $d_h^R=64$.

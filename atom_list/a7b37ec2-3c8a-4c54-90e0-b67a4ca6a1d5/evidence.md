@@ -1,0 +1,2 @@
+### Evidence
+Section 2.2, Eqs.(21)-(25): MTP module design with shared embedding/output, projection $M_k$, Transformer block $TRM_k$, cross-entropy loss $\mathcal{L}_{MTP}^k$. Table 4: ablation across small (15.7B) and large (228.7B) models. Section 5.4.3: "acceptance rate of the second token prediction ranges between 85% and 90%" enabling "1.8 times TPS."

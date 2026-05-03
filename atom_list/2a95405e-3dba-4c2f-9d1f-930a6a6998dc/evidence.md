@@ -1,0 +1,2 @@
+### Evidence
+Section 5.2.2, Eqs.(26)-(28): full GRPO objective. Section 5.2.1: rule-based RM for deterministic verification, model-based RM trained from SFT checkpoint with chain-of-thought preference data. Section 5.4.2: constitutional AI approach with voting evaluation for self-rewarding on open-ended questions. Section 5.4.1: R1 distillation improves LiveCodeBench from 31.1 to 37.4, MATH-500 from 74.6 to 83.2.

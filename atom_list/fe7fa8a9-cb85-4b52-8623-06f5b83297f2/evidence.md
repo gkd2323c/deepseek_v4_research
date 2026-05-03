@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1.2, Eq.(16): bias added only for routing, not gating. Section 4.5.2, Table 5: ablation shows aux-loss-free consistently outperforms aux-loss-based (Small MoE: HumanEval 22.6 vs 22.0, GSM8K 29.6 vs 27.1; Large MoE: HumanEval 46.3 vs 40.2, GSM8K 74.5 vs 70.7). Section 4.5.3: "auxiliary-loss-free model demonstrates greater expert specialization patterns" across Wikipedia, Github, and DM Mathematics domains. Figure 9: visualization confirms domain-specific expert activation patterns.

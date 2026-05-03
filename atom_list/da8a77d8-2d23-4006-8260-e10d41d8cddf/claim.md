@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3 implements FP8 mixed precision training: FP8 GEMM for forward/backward (Fprop, Dgrad, Wgrad), BF16/FP32 for sensitive components (embedding, output head, MoE gating, normalization, attention). Key innovations: (1) fine-grained quantization — 1x128 tiles for activations, 128x128 blocks for weights; (2) promotion to CUDA cores every $N_C=128$ elements for FP32 accumulation; (3) E4M3 format on all tensors (vs hybrid E4M3/E5M2 in prior work); (4) online quantization (no delayed max history). Validation on two scales shows relative loss error <0.25% vs BF16.

@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3 training on 14.8T tokens was remarkably stable: "Throughout the entire training process, we did not experience any irrecoverable loss spikes or perform any rollbacks." Total cost: 2.788M H800 GPU hours ($5.576M), with 180K GPU hours per trillion tokens. Training efficiency achieved through DualPipe (fewer pipeline bubbles + computation-communication overlap), efficient cross-node all-to-all kernels, and no tensor parallelism.

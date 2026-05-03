@@ -1,0 +1,2 @@
+### Claim
+DeepSeek-V3 pioneers an auxiliary-loss-free load balancing strategy for MoE. A per-expert bias term $b_i$ is added to affinity scores for routing decisions only (not for gating values). The bias is dynamically adjusted: decreased by $\gamma$ for overloaded experts, increased by $\gamma$ for underloaded experts, with $\gamma=0.001$. This achieves better performance than auxiliary-loss-based methods because it allows greater expert specialization across domains (batch-wise vs sequence-wise balancing).
