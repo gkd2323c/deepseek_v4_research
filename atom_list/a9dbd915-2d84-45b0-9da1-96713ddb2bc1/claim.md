@@ -1,0 +1,2 @@
+### Claim
+Distributed Muon extends ZeRO-1 for Newton-Schulz requiring full gradient matrices. Key operations beyond standard ZeRO-1: (1) DP Gather — collects partitioned gradients into full matrix for Newton-Schulz, (2) Calculate Full Update then discard non-local partitions. Memory: half of AdamW (one momentum buffer vs two). Communication overhead: $(1, 1.25]\times$ AdamW. Newton-Schulz runs in bf16 (50% communication vs fp32). End-to-end latency increase is negligible (optimizer < 3% of forward-backward).

@@ -1,0 +1,2 @@
+### Claim
+HC can learn to arrange layers in configurations that blend sequential and parallel arrangements. With specific HC matrices, the network can be purely sequential (Eq. 17: each layer feeds into the next) or purely parallel (Eqs. 18-19: every two adjacent layers form a parallel block, like Parallel Transformer Blocks). In practice, learned HC weights exhibit PTB-like local jagged patterns, confirming dynamic arrangement.

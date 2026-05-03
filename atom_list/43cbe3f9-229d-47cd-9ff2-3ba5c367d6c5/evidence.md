@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1, Eq. (1)-(7): HC matrix structure defined in Eq. (1). Output computed as $\hat{H} = B^T T(H^T Am)^T + Ar^T H$ (Eq. 2). Depth-connections in Eq. (6): $DC = [[\beta_1,...,\beta_n]; [\alpha_{1,1},...,\alpha_{n,n}]]$. Width-connections in Eq. (7): $WC = [Am, Ar] \in \mathbb{R}^{n\times(n+1)}$. Algorithm 1 provides the full forward pass.

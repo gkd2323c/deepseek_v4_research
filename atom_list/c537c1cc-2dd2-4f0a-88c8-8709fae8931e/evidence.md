@@ -1,0 +1,2 @@
+### Evidence
+Section 4.1: "DHC demonstrates greater stability, with no spikes observed in any DHC experiments." Section 4.3 (Fig. 6): "the baseline model exhibits frequent spikes, while our model with DHCs shows no spikes throughout the training." Figure 3: Pre-Norm models show high cosine similarity between adjacent layers (representation collapse, median ~0.9), while HC models show lower similarity (median ~0.4) with wider distribution.

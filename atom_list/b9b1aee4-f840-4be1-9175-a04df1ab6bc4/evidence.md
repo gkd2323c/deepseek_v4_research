@@ -1,0 +1,2 @@
+### Evidence
+Section 2.2, Eqs. (8)-(13): Dynamic HC matrix defined in Eq. (8). Input normalization in Eq. (10): $\bar{H} = \text{norm}(H)$. Dynamic parameters via linear transform + tanh in Eqs. (11)-(13). Scaling factors $s_\beta, s_\alpha$ initialized to small values for stability.

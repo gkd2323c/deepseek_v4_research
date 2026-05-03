@@ -1,0 +1,2 @@
+### Claim
+Dynamic Hyper-Connections (DHC) make the connection weights input-dependent via $HC(H) = [[0, B(H)]; [Am(H), Ar(H)]]$. The dynamic parameters are computed as: $B(H) = s_\beta \circ \tanh(\text{norm}(H)W_\beta)^T + B$, $Am(H) = s_\alpha \circ \tanh(\text{norm}(H)W_m) + Am$, $Ar(H) = s_\alpha \circ \tanh(\text{norm}(H)W_r) + Ar$, where $s_\beta, s_\alpha$ are small learnable scaling factors and $\tanh$ stabilizes training.

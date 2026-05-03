@@ -1,0 +1,2 @@
+### Evidence
+Section 2.3, Algorithm 1: full distributed Muon procedure. Memory analysis: "Muon uses only one momentum buffer, while AdamW uses two momentum buffers." Communication: "the communication workload of Distributed Muon is $(1, 1.25]\times$ of Distributed AdamW." Latency: "the end-to-end latency caused by the optimizer is negligible compared to the model's forward-backward pass time (e.g. usually 1% to 3%)."

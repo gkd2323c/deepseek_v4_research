@@ -1,0 +1,2 @@
+### Claim
+Hyper-Connections (HC) replace residual connections with a learnable matrix $HC \in \mathbb{R}^{(n+1)\times(n+1)}$ where $n$ is the expansion rate. The matrix decomposes as $HC = [[0, B]; [Am, Ar]]$, where $B \in \mathbb{R}^{1\times n}$ weights the layer output, $Am \in \mathbb{R}^{n\times 1}$ computes a weighted sum of $n$ hidden vectors as layer input, and $Ar \in \mathbb{R}^{n\times n}$ performs width-connections between hidden vectors. These can be decoupled into depth-connections $DC = [B; \text{diag}(Ar)]$ and width-connections $WC = [Am, Ar]$.

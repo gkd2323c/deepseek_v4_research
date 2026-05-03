@@ -1,0 +1,2 @@
+### Claim
+Scaling law experiments demonstrate Muon achieves approximately 2× computational efficiency compared to AdamW: Muon requires only ~52% of training FLOPs to match AdamW's performance under compute-optimal training. The fitted scaling law is $L(C) = 2.506 \times C^{-0.052}$ for Muon vs $2.608 \times C^{-0.054}$ for AdamW.

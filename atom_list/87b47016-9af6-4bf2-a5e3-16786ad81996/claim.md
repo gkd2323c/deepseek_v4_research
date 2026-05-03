@@ -1,0 +1,2 @@
+### Claim
+Muon (K. Jordan et al., 2024) updates matrix parameters via orthogonalized gradient momentum using Newton-Schulz iteration: $M_t = \mu M_{t-1} + \nabla L_t$, $O_t = \text{NewtonSchulz}(M_t)$, $W_t = W_{t-1} - \eta_t O_t$. The Newton-Schulz iteration (Eq. 2) uses coefficients $(a,b,c) = (3.4445, -4.7750, 2.0315)$ — the same as V4's fast-phase — to converge $X_k \to (M_t M_t^T)^{-1/2} M_t$ (the orthogonal polar factor of $M_t$). Nesterov-style momentum pre-combines $\mu M_t + \nabla L_t$ before orthogonalization.

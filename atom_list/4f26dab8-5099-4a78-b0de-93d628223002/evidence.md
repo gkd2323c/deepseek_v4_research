@@ -1,0 +1,2 @@
+### Evidence
+Section 3.2: "Muon only requires about 52% training FLOPs to match the performance of AdamW." Figure 1a visualizes the 2× efficiency gap. Figure 3 and Table 3 provide fitted scaling law parameters: Muon $L(C) = 2.506 C^{-0.052}$, AdamW $L(C) = 2.608 C^{-0.054}$.

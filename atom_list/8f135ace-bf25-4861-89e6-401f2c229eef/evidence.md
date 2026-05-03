@@ -1,0 +1,2 @@
+### Evidence
+Section 3.2 and Appendix H: Sequential HC matrix in Eq. (17). Parallel HC matrices in Eqs. (18)-(19). Full proof by mathematical induction in Appendix H.1 and H.2. Section 4.5 visualization: "PTB-like patterns, which can be identified by the local jagged pattern, are surprisingly observed to be learned by hyper-connections. For instance, layer 11 has a minimal contribution to the input of layer 12."

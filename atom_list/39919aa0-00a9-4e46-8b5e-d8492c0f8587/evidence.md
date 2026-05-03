@@ -1,0 +1,2 @@
+### Evidence
+Section 3.4, Figure 4: SVD entropy curves across 6 parameter groups show Muon consistently above AdamW. "For over 90% of the weight matrices, the SVD entropy when optimized by Muon is higher than that of AdamW." Appendix F, Figures 9-10: singular value distributions per matrix, with red spines marking cases where Muon has lower entropy (rare).

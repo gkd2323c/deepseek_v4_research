@@ -1,0 +1,2 @@
+### Evidence
+Table 1: V2 Eval Loss: OLMo-1B 2.811, DHCx1 2.819 (worse), DHCx2 2.802, DHCx4 2.781, DHCx8 2.778. Figure 5: training loss curves. Appendix F (Fig. 14): HCx1 connection matrix shows layer 17 wasted, no Λ pattern. Section 4.1: "when n > 1, hyper-connections can not only learn to adjust the strength of residuals but also rearrange layers, either sequentially or in parallel."

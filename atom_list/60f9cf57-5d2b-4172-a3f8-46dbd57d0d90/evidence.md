@@ -1,0 +1,2 @@
+### Evidence
+Section 2.2 and Figure 2: Vanilla Muon initially converges faster but weight RMS grows too large. Muon with weight decay outperforms both vanilla Muon and AdamW (Fig. 2). Lemma 1: proof in Appendix A. Section 3.1, Table 1: Adjusted LR method produces matching validation loss (2.789) and healthy weight RMS. Section 2.2: Update scaling in Eq. (4): $0.2 \cdot O_t \cdot \sqrt{\max(A,B)}$.

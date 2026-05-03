@@ -1,0 +1,2 @@
+### Claim
+HC introduces negligible parameters and computation. For OLMo-1B-DHCx4: +394K params (+0.033%) and +0.0049 GFLOPs (+0.2%). For OLMo-7B-DHCx4: +1.3M params (+0.023%) and +0.02 GFLOPs (+0.15%). The main cost is $O(d_{model} \times n \times (n+1)) \ll O(4 \times d_{model}^2)$ of attention projection.

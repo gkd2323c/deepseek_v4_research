@@ -1,0 +1,2 @@
+### Claim
+Hyper-Connections significantly improve training stability. For OLMo-1B, "no spikes observed in any DHC experiments." For OLMo-7B, the baseline exhibits frequent spikes while "our model with DHCs shows no spikes throughout the training." The HC connection patterns also show lower inter-layer representation similarity, mitigating representation collapse.

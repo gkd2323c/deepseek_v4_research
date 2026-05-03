@@ -1,0 +1,2 @@
+### Claim
+Both Pre-Norm and Post-Norm residual connections are special cases of Hyper-Connections with expansion rate $n=1$ and non-trainable weights. Pre-Norm corresponds to $HC = [[0, 1]; [1, 1]]$; Post-Norm corresponds to $HC = [[0, 1/\sqrt{\sigma_h^2+\sigma_{h'}^2+2\sigma_{hh'}}]; [1, 1/\sqrt{\sigma_h^2+\sigma_{h'}^2+2\sigma_{hh'}}]]$ where $\sigma_h, \sigma_{h'}$ are standard deviations of input/output.

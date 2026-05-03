@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1: Eqs. (1)-(2) define Muon's update rule and Newton-Schulz iteration. Coefficients $(a,b,c) = (3.4445, -4.7750, 2.0315)$ are confirmed: "we follow the same setting of coefficients." The theoretical interpretation: "Muon can be viewed as steepest descent under the spectral norm" (Bernstein et al., 2024), providing a more reasonable norm constraint than AdamW.

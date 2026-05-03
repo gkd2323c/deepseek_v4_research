@@ -1,0 +1,2 @@
+### Claim
+Two techniques enable Muon to scale to large models: (1) Weight decay — without it, weight and output RMS grow unboundedly, degrading long-term performance. The update becomes $W_t = W_{t-1} - \eta_t(O_t + \lambda W_{t-1})$. (2) Consistent update RMS — Muon's theoretical update RMS is $1/\sqrt{\max(A,B)}$ (Lemma 1), causing inconsistency across parameter shapes. Scaling by $0.2 \cdot \sqrt{\max(A,B)}$ matches AdamW's typical 0.2~0.4 RMS, enabling direct reuse of AdamW-tuned hyperparameters.

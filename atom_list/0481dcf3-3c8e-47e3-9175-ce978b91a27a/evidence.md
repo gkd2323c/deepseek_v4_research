@@ -1,0 +1,2 @@
+### Evidence
+Section 3.1 and Appendix G: Pre-Norm HC matrix in Eq. (15) = [[0,1];[1,1]]. Proof in Eq. (33). Post-Norm HC matrix in Eq. (16) with variance/covariance terms. Proof in Eq. (41) showing $\hat{H} = \hat{h}^T$.

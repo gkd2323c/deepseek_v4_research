@@ -1,0 +1,2 @@
+### Claim
+Muon produces weight matrices with higher SVD entropy than AdamW across all training checkpoints and parameter groups (Attention Q/O, KV, Experts, Shared Experts, Router, Dense). For over 90% of weight matrices, Muon's singular value distribution is more flattened, indicating more diverse optimization directions. The difference is most pronounced in router weights, suggesting MoE models benefit most.

@@ -1,0 +1,2 @@
+### Evidence
+Table 7: Parameter counts - OLMo-1B-DHCx4: 394K extra params out of 1.177B (0.033%). Table 8: FLOPs - OLMo-1B-DHCx4: 0.0049G extra out of 2.358G (0.200%). Appendix B: "The main computational cost... is $O(d_{model} \times n \times (n+1))$, which is negligible compared to FFN $O(2\times d_{model}\times d_{ffn})$."

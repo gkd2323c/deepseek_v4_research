@@ -1,0 +1,2 @@
+### Claim
+HC with expansion rate $n=1$ performs worse than the residual baseline, but $n \geq 2$ significantly outperforms it. $n=4$ is the optimal sweet spot (V2 Eval Loss 2.781 vs baseline 2.811), with $n=8$ providing minimal additional benefit. The failure of $n=1$ is due to inability to form the $\Lambda$-shaped connection pattern that combines Pre-Norm (frequent bottom-layer access) and Post-Norm (long-term decay) styles.
