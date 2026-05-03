@@ -4,7 +4,7 @@
 
 ## Abstract
 
-Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **72 atoms and 123 relations** spanning 8 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. These 5 verified atoms represent 7% of the total graph; the remaining 93% rely on the paper's own evidence and await independent confirmation. Our key hypothesis is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — our small-scale experiments show no effect, while the paper reports them as essential at 1.6T, suggesting they may only manifest at billion-parameter scale.
+Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **72 atoms and 123 relations** spanning 10 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. These 5 verified atoms represent 7% of the total graph; the remaining 93% rely on the paper's own evidence and await independent confirmation. Our key hypothesis is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — our small-scale experiments show no effect, while the paper reports them as essential at 1.6T, suggesting they may only manifest at billion-parameter scale.
 
 **Keywords**: LLM analysis, Mixture-of-Experts, training stability, knowledge graphs, DeepSeek-V4
 
@@ -28,7 +28,7 @@ Unlike traditional literature reviews that summarize findings, or citation graph
 
 We apply this methodology to DeepSeek-V4, a 1.6T-parameter Mixture-of-Experts model that represents the current state-of-the-art in open-source language modeling. V4 introduces several innovations: manifold-constrained hyper-connections (mHC), a hybrid attention mechanism (CSA + HCA), the Muon optimizer with modified Newton-Schulz iterations, and novel training stability techniques (SwiGLU Clamping, Anticipatory Routing).
 
-Our analysis spans **8 papers** (V4 plus 7 references), with 5 papers fully parsed at the paragraph level. We construct **66 atoms** and **123 relations**, achieving complete origin tracing for V4's core innovations:
+Our analysis spans **10 papers** (V4 plus 7 references), with 5 papers fully parsed at the paragraph level. We construct **72 atoms** and **123 relations**, achieving complete origin tracing for V4's core innovations:
 
 ```
 V2 (MLA + DeepSeekMoE + GRPO)
@@ -139,13 +139,13 @@ For this study, the atom graph contains:
 
 **Relation type distribution**: 25 motivates (20%), 38 derives (31%), 55 validates (45%), 3 formalizes (2%), 2 contradicts (2%).
 
-**Graph visualization**: Figure 1 shows the core architecture evolution subgraph, highlighting the V2→V3→R1→V4 derivation chains. Figure 2 shows the complete atom graph with all 66 atoms and 123 relations.
+**Graph visualization**: Figure 1 shows the core architecture evolution subgraph, highlighting the V2→V3→R1→V4 derivation chains. Figure 2 shows the complete atom graph with all 72 atoms and 123 relations.
 
 ![Figure 1: Core Architecture Evolution](atom_graph_core.png)
 *Figure 1: Core architecture evolution subgraph. Node colors indicate atom type (red=fact, teal=method, yellow=theorem, green=verification). Edge styles indicate relation type (dashed=motivates, solid=derives, dotted=validates).*
 
 ![Figure 2: Complete Atom Graph](atom_graph_full.png)
-*Figure 2: Complete atom graph with 66 atoms and 123 relations. The graph reveals the dense interconnection between V4's innovations and their origins in V2, V3, and R1.*
+*Figure 2: Complete atom graph with 72 atoms and 123 relations. The graph reveals the dense interconnection between V4's innovations and their origins in V2, V3, and R1.*
 
 ### 2.6 Limitations of the Methodology
 
@@ -155,7 +155,7 @@ The atom-graph approach has several limitations that should be acknowledged:
 
 **Evidence interpretation**: Assessing whether evidence "supports" a claim involves interpretation. We adopt a conservative stance: if the evidence is indirect or relies on assumptions not explicitly stated, we mark the atom as `from_paper` rather than `proven`.
 
-**Graph completeness**: Our graph captures the claims we identified, but may miss implicit claims or unstated assumptions. The 66 atoms represent our best-effort decomposition, not a provably complete one.
+**Graph completeness**: Our graph captures the claims we identified, but may miss implicit claims or unstated assumptions. The 72 atoms represent our best-effort decomposition, not a provably complete one.
 
 **Temporal bias**: We analyze papers as published, without access to peer review comments, author responses, or post-publication corrections that might affect evidence assessment.
 
@@ -452,7 +452,7 @@ Distinguishing between these factors requires controlled ablation experiments at
 
 **External validity**: We analyze only DeepSeek-V4 and its direct predecessors. Other MoE architectures (Mixtral, Grok) may have different stability characteristics. Our atom-graph methodology is general, but the specific findings about scale-dependent mechanisms are model-family-specific.
 
-**Construct validity**: The atom decomposition process involves subjective judgment. We follow explicit principles (one claim per atom, split conjunctions), but different researchers might produce different graphs. The 66-atom graph represents one valid decomposition, not the only one.
+**Construct validity**: The atom decomposition process involves subjective judgment. We follow explicit principles (one claim per atom, split conjunctions), but different researchers might produce different graphs. The 72-atom graph represents one valid decomposition, not the only one.
 
 **Statistical validity**: Experiments use 3 seeds per condition, which provides basic statistical reliability but may not capture rare failure modes. For the key finding (scale-dependent stability), the absence of effect at small scale is consistent across all seeds and configurations, strengthening the conclusion.
 
@@ -509,7 +509,7 @@ Prior work on systematic research analysis includes scientific knowledge graph c
 
 ### 7.1 Summary
 
-We presented an atom-graph driven methodology for systematic research paper analysis and applied it to DeepSeek-V4, a 1.6T-parameter Mixture-of-Experts model. Our analysis spans 8 papers, 66 atoms, and 123 relations, with 5 independent verification experiments. The key findings are:
+We presented an atom-graph driven methodology for systematic research paper analysis and applied it to DeepSeek-V4, a 1.6T-parameter Mixture-of-Experts model. Our analysis spans 10 papers, 72 atoms, and 123 relations, with 5 independent verification experiments. The key findings are:
 
 1. **Complete origin tracing**: V4's innovations trace back through V2 (MLA, DeepSeekMoE), V3 (Aux-Loss-Free, MTP, FP8), and R1 (pure RL reasoning, distillation), with clear derivations at each step.
 
@@ -605,7 +605,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 | 266f1dd4 | Training MoE Stability Challenges | fact | V4 | from_paper |
 | ... | ... | ... | ... | ... |
 
-*(Full list of 66 atoms available in `atom_list/` directory)*
+*(Full list of 72 atoms available in `atom_list/` directory)*
 
 ### A.2 Relation Statistics
 
