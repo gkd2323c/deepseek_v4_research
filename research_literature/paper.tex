@@ -305,6 +305,25 @@ using learnable head weights $w_{t,h}^I$. Core attention uses Shared Key-Value M
 
 The hybrid configuration interleaves CSA and HCA across layers, with a sliding window branch ($n_{\text{win}}=128$) in every layer for local dependencies. For V4-Pro: the first 2 layers use HCA, the remaining 59 layers alternate CSA and HCA.
 
+\subsection{Conditional Memory: Engram Module}
+\label{sec:engram}
+
+V4 introduces a novel \textbf{Engram module} that extends sparsity beyond MoE{\textquotesingle}s conditional computation to \textbf{conditional memory}---using scalable hash lookup for static knowledge retrieval at $O(1)$ time complexity \cite{deepseek-engram}.
+
+\textbf{Core idea:} Modern LLMs waste significant computation on reconstructing static facts (named entities, factual associations, idioms) through dense deep computation. Engram offloads up to 27 billion parameters of static knowledge into a sparse hash lookup table, freeing the main network{\textquotesingle}s computation depth for dynamic reasoning.
+
+\textbf{Technical mechanism:} Based on modernized N-gram embedding technology, Engram uses a high-dimensional sparse embedding table with hash-based retrieval. The key theoretical insight is a \textbf{U-shaped scaling law} between static memory capacity and neural network computation---there exists an optimal allocation point where separating static knowledge from dynamic reasoning maximizes overall capability.
+
+\textbf{Empirical results:} Engram-equipped models show improvements beyond knowledge retrieval tasks:
+\begin{itemize}
+    \item BBH (reasoning): +5.0 points
+    \item HumanEval (code): +3.0 points
+\end{itemize}
+
+This demonstrates that separating static memory produces \textbf{structural dividends}---the freed computation depth can be redirected to more complex logical reasoning, and long-context {\textquotedblleft}needle-in-a-haystack{\textquotedblright} precision is significantly enhanced.
+
+\textbf{Origin tracing:} This represents a new axis of sparsity for LLMs, complementary to MoE{\textquotesingle}s conditional computation. While MoE selectively activates parameters for different inputs, Engram selectively retrieves knowledge from external memory, enabling a cleaner separation between {\textquotedblleft}what the model knows{\textquotedblright} and {\textquotedblleft}how the model reasons.{\textquotedblright}
+
 \textbf{Origin tracing:} V2 introduced MLA with $d_c=512$. V3 inherited MLA unchanged. V4's CSA/HCA represents a fundamental redesign: instead of projecting to a fixed low-rank space (MLA), it dynamically selects which compressed entries to attend to (CSA) while maintaining a heavily compressed global view (HCA).
 
 \subsection{Manifold-Constrained Hyper-Connections (mHC)}
@@ -362,6 +381,17 @@ These modes allow users to trade off between response speed and reasoning depth,
 % ============================================================
 % 4. VERIFICATION EXPERIMENTS
 % ============================================================
+\subsection{Training Infrastructure}
+\label{sec:infrastructure}
+
+V4{\textquotesingle}s training infrastructure includes several innovations that enable efficient trillion-parameter training:
+
+\textbf{TileLang:} A domain-specific language (DSL) for GPU kernel development that uses {\textquotedblleft}Tile{\textquotedblright} (rectangular slices of multidimensional arrays) as the core programming primitive \cite{tilelang}. TileLang provides Python-friendly APIs for GPU resource allocation (shared memory, register scheduling), enabling researchers to implement complex kernels in $\sim$80 lines of Python (vs 90\%+ reduction from CUDA). It integrates Z3 SMT solver for formal integer analysis of tensor indexing, ensuring correctness during auto-vectorization and memory conflict elimination.
+
+\textbf{Fine-Grained Expert Parallelism:} A wave-based scheduling scheme that fuses Dispatch/Combine communication with Linear-1/Linear-2 computation into single pipelined kernels. This achieves 1.50--1.73$\times$ speedup for general inference and up to 1.96$\times$ for latency-sensitive RL rollouts, with communication fully hidden when $\frac{C}{B} \leq 2d$ (6144 FLOPs/Byte for V4-Pro).
+
+\textbf{DeepSec Sandbox:} An elastic computing sandbox cluster for agentic task evaluation, supporting Function Call, container, microVM, and fullVM execution bases. It uses 3FS distributed filesystem with EROFS read-only image compression and overlaybd copy-on-write layers for near-zero cold start latency.
+
 \section{Verification Experiments}
 \label{sec:experiments}
 
@@ -729,6 +759,18 @@ DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via
 
 \bibitem{deepseek-v4}
 DeepSeek-AI. (2025). DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. Technical Report, DeepSeek-AI, 2025.
+
+\bibitem{deepseek-mhc}
+DeepSeek-AI. (2025). mHC: Manifold-Constrained Hyper-Connections. \textit{arXiv:2512.24880}.
+
+\bibitem{deepseek-engram}
+DeepSeek-AI. (2025). Conditional Memory via Scalable Lookup: A New Axis of Sparsity for Large Language Models. \textit{arXiv:2601.07372}.
+
+\bibitem{tilelang}
+DeepSeek-AI. (2025). TileLang: Bridge Programmability and Performance in Modern Neural Kernels. \textit{OpenReview}.
+
+\bibitem{nist-caisi}
+NIST CAISI. (2026). CAISI Evaluation of DeepSeek V4 Pro. \textit{National Institute of Standards and Technology}.
 
 \bibitem{zhu2024}
 Zhu, D., et al. (2024). Hyper-Connections. \textit{ICLR 2025. arXiv:2409.19606}.
