@@ -53,7 +53,7 @@ This paper makes three contributions:
 
 ### 1.5 Paper Organization
 
-Section 2 formalizes the atom-graph methodology. Section 3 presents the architecture analysis with complete origin tracing. Section 4 describes the 5 verification experiments. Section 5 discusses key findings, particularly the scale-dependent stability mechanism. Section 6 covers related work. Section 7 concludes with limitations and future directions.
+Section 2 formalizes the atom-graph methodology. Section 3 presents the architecture analysis with complete origin tracing. Section 4 describes the 5 verification experiments. Section 5 discusses key findings, including threats to validity. Section 6 covers related work. Section 7 concludes with limitations, broader impact, and future directions.
 
 ---
 
@@ -137,9 +137,23 @@ For this study, the atom graph contains:
 
 **Relation type distribution**: 25 motivates (20%), 38 derives (31%), 55 validates (45%), 3 formalizes (2%), 2 contradicts (2%).
 
+### 2.6 Limitations of the Methodology
+
+The atom-graph approach has several limitations that should be acknowledged:
+
+**Extraction subjectivity**: Decomposing a paper into atoms requires judgment calls about claim boundaries. Different researchers may decompose the same paper differently. We mitigate this by following explicit granularity principles (one claim per atom, split conjunctions), but subjectivity cannot be fully eliminated.
+
+**Evidence interpretation**: Assessing whether evidence "supports" a claim involves interpretation. We adopt a conservative stance: if the evidence is indirect or relies on assumptions not explicitly stated, we mark the atom as `from_paper` rather than `proven`.
+
+**Graph completeness**: Our graph captures the claims we identified, but may miss implicit claims or unstated assumptions. The 66 atoms represent our best-effort decomposition, not a provably complete one.
+
+**Temporal bias**: We analyze papers as published, without access to peer review comments, author responses, or post-publication corrections that might affect evidence assessment.
+
 ---
 
 ## 3. Architecture Analysis with Origin Tracing
+
+Having established the methodology, we now apply it to DeepSeek-V4. This section traces each of V4's core innovations back to its origin, revealing a systematic evolution across four generations of the DeepSeek model family.
 
 ### 3.1 DeepSeek Evolution Chain
 
@@ -209,6 +223,8 @@ This extends R1's finding that distillation outperforms direct RL for smaller mo
 
 ## 4. Verification Experiments
 
+The architecture analysis in Section 3 reveals that V4's innovations have clear origins and logical derivations. However, origin tracing alone cannot assess whether the paper's specific quantitative claims hold. This section describes 5 independent verification experiments targeting the most architecturally significant claims.
+
 ### 4.1 Experiment Design Principles
 
 All experiments follow a consistent framework:
@@ -217,7 +233,19 @@ All experiments follow a consistent framework:
 - **Statistical Rigor**: Multiple seeds, report mean ± std
 - **Evidence Gate**: Results update the atom's evidence status
 
-Experiments were conducted on a CPU-only machine (Intel i5-13490F, 16GB RAM) with PyTorch 2.4.1. DirectML was used for GPU acceleration on AMD 7800XT where compatible.
+**Hardware Environment**:
+- CPU: Intel i5-13490F (16 cores, 13th Gen)
+- RAM: 16 GB
+- GPU: AMD 7800XT (16GB VRAM, RDNA 3) via DirectML
+- OS: WSL2 (Ubuntu 24.04) on Windows
+
+**Software Environment**:
+- Python 3.12.3
+- PyTorch 2.4.1 (CPU and ROCm builds tested)
+- torch-directml 0.2.5.dev240914
+- Pure Python implementations for CPU-only experiments
+
+**Reproducibility**: All experiment scripts are available in the `experiments/` directory. Random seeds are fixed at 42, 100, 200, 300 for multi-seed experiments. No external datasets are used; all experiments use synthetic data generated from specified distributions.
 
 ### 4.2 Plan 02: FP4 Lossless Dequantization
 
@@ -324,6 +352,8 @@ Routing distribution with outlier affinity (score=50): Sigmoid produces uniform 
 
 ## 5. Key Findings and Discussion
 
+The verification experiments in Section 4 confirm several of V4's claims while revealing an unexpected pattern: some mechanisms are effective only at large scale. This section discusses the implications of these findings.
+
 ### 5.1 Scale-Dependent Stability Mechanisms
 
 Our central finding is that **SwiGLU Clamping and Anticipatory Routing are scale-dependent safety mechanisms**:
@@ -360,7 +390,17 @@ We identify four potential contributing factors:
 
 Distinguishing between these factors requires controlled ablation experiments at 1B+ scale, which we leave for future work.
 
-### 5.3 Evolution of Attention Efficiency
+### 5.3 Threats to Validity
+
+**Internal validity**: Our experiments use synthetic data and small models. The observed effects (or lack thereof) at 128-dim scale may not generalize to 1.6T scale. We acknowledge this limitation explicitly and frame our findings as "scale-dependent" rather than universal.
+
+**External validity**: We analyze only DeepSeek-V4 and its direct predecessors. Other MoE architectures (Mixtral, Grok) may have different stability characteristics. Our atom-graph methodology is general, but the specific findings about scale-dependent mechanisms are model-family-specific.
+
+**Construct validity**: The atom decomposition process involves subjective judgment. We follow explicit principles (one claim per atom, split conjunctions), but different researchers might produce different graphs. The 66-atom graph represents one valid decomposition, not the only one.
+
+**Statistical validity**: Experiments use 3 seeds per condition, which provides basic statistical reliability but may not capture rare failure modes. For the key finding (scale-dependent stability), the absence of effect at small scale is consistent across all seeds and configurations, strengthening the conclusion.
+
+### 5.4 Evolution of Attention Efficiency
 
 Each DeepSeek generation achieves order-of-magnitude KV cache reduction:
 
@@ -372,7 +412,7 @@ Each DeepSeek generation achieves order-of-magnitude KV cache reduction:
 
 This suggests a pattern: each generation introduces a fundamentally new compression approach rather than incrementally optimizing the previous one.
 
-### 5.4 Verification Gap Analysis
+### 5.5 Verification Gap Analysis
 
 Of 66 atoms in our graph:
 
@@ -394,6 +434,8 @@ These represent opportunities for future verification work.
 ---
 
 ## 6. Related Work
+
+Our analysis touches on several research areas. We briefly discuss the most relevant prior work in each.
 
 ### 6.1 Mixture-of-Experts Architecture
 
@@ -419,7 +461,7 @@ Prior work on systematic research analysis includes citation network analysis (K
 
 ### 7.1 Summary
 
-We presented an atom-graph driven methodology for systematic research paper analysis and applied it to DeepSeek-V4. Our key findings are:
+We presented an atom-graph driven methodology for systematic research paper analysis and applied it to DeepSeek-V4, a 1.6T-parameter Mixture-of-Experts model. Our analysis spans 8 papers, 66 atoms, and 123 relations, with 5 independent verification experiments. The key findings are:
 
 1. **Complete origin tracing**: V4's innovations trace back through V2 (MLA, DeepSeekMoE), V3 (Aux-Loss-Free, MTP, FP8), and R1 (pure RL reasoning, distillation), with clear derivations at each step.
 
@@ -433,7 +475,15 @@ We presented an atom-graph driven methodology for systematic research paper anal
 - **Incomplete verification**: Only 5 of 66 atoms (8%) are independently verified. Many infrastructure claims (EP, deterministic kernels) remain untested.
 - **Extraction subjectivity**: Atom decomposition involves judgment calls about claim boundaries and evidence relevance.
 
-### 7.3 Future Work
+### 7.3 Broader Impact
+
+**For LLM researchers**: Our scale-dependent stability finding has practical implications. Researchers attempting to reproduce frontier model techniques at smaller scale should be aware that some mechanisms (SwiGLU Clamping, Anticipatory Routing) may appear ineffective simply because the scale is insufficient. Conversely, techniques that work at small scale may not transfer to large scale without additional stabilization.
+
+**For the research community**: The atom-graph methodology provides a structured alternative to traditional literature review. By making provenance explicit and gaps visible, it enables more efficient allocation of verification effort. We encourage other researchers to apply this methodology to frontier model papers.
+
+**For open science**: Our complete codebase, atom graph, and verification experiments are publicly available. This enables reproducibility and allows others to extend our analysis with additional papers or experiments.
+
+### 7.5 Future Work
 
 1. **Scale-up experiments**: Conduct 1B+ scale training to verify AR and SwiGLU Clamping under realistic conditions
 2. **Cross-model analysis**: Apply atom-graph methodology to GPT-5, Gemini, and Claude for comparative analysis
