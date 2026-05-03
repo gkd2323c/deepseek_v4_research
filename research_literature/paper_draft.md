@@ -4,7 +4,7 @@
 
 ## Abstract
 
-Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **66 atoms and 123 relations** spanning 8 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. These 5 verified atoms represent 8% of the total graph; the remaining 92% rely on the paper's own evidence and await independent confirmation. Our key hypothesis is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — our small-scale experiments show no effect, while the paper reports them as essential at 1.6T, suggesting they may only manifest at billion-parameter scale.
+Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **72 atoms and 123 relations** spanning 8 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. These 5 verified atoms represent 7% of the total graph; the remaining 93% rely on the paper's own evidence and await independent confirmation. Our key hypothesis is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — our small-scale experiments show no effect, while the paper reports them as essential at 1.6T, suggesting they may only manifest at billion-parameter scale.
 
 **Keywords**: LLM analysis, Mixture-of-Experts, training stability, knowledge graphs, DeepSeek-V4
 
@@ -41,7 +41,7 @@ V4: Think High/Max ←──────── R1: Emergent Reasoning
 V4: OPD Multi-Teacher ←──── R1: Distillation >> RL
 ```
 
-*(Note: "Think High/Max" refers to V4's three reasoning modes — Non-think, Think High, Think Max — formally defined in §3.6.)*
+*(Note: "Think High/Max" refers to V4's three reasoning modes — Non-think, Think High, Think Max — formally defined in §3.7. The Engram conditional memory module (§3.3) is an independent architectural innovation not captured in this evolution chain.)*
 
 ### 1.4 Contributions
 
@@ -130,9 +130,9 @@ For this study, the atom graph contains:
 
 | Metric | Count |
 |--------|-------|
-| Total atoms | 66 |
+| Total atoms | 72 |
 | Total relations | 123 |
-| Papers analyzed | 8 (5 full-text, 2 abstract, 1 main) |
+| Papers analyzed | 10 (5 full-text, 4 abstract/secondary, 1 main) |
 | Verified atoms | 5 |
 
 **Atom type distribution**: 10 fact (14%), 44 method (61%), 1 theorem (1%), 17 verification (24%).
@@ -398,6 +398,8 @@ Routing distribution with outlier affinity (score=50): Sigmoid produces uniform 
 
 **Method**: CPU experiment on small MoE model with outlier injection, comparing baseline, always-on AR, and dynamic AR.
 
+**Note on AR activation mode**: The paper describes AR as a **responsive auto-trigger mechanism** — during normal training, the model maintains standard routing. Only when internal monitoring detects a loss spike does the system execute a short rollback and temporarily activate AR mode. Once the training trajectory stabilizes, AR deactivates. This on/off design minimizes global training overhead (~20% when active) while providing targeted intervention during instability events.
+
 **Results**: At small scale (128-dim, 4 experts), no natural loss spikes occur. AR has no observable effect. This is consistent with the scale-dependent mechanism hypothesis.
 
 **Verdict**: ⚠️ **Inconclusive at small scale**. The mechanism is designed for 1.6T training where loss spikes are frequent. Full verification requires 1B+ scale experiments.
@@ -460,13 +462,13 @@ Each DeepSeek generation achieves order-of-magnitude KV cache reduction. V2's ML
 
 ### 5.5 Verification Gap Analysis
 
-Of 66 atoms in our graph:
+Of 72 atoms in our graph:
 
 | Status | Count | Percentage |
 |--------|-------|------------|
-| ✅ Proven (independent verification) | 5 | 8% |
+| ✅ Proven (independent verification) | 5 | 7% |
 | ⚠️ In Progress | 1 | 1% |
-| 📄 From Paper Only | 60 | 91% |
+| 📄 From Paper Only | 66 | 92% |
 
 The 5 verified atoms cover the most architecturally significant claims (FP4, KV cache, Muon, Sqrt(Softplus), SwiGLU). However, several important claims remain unverified:
 
@@ -518,7 +520,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 ### 7.2 Limitations
 
 - **Scale gap**: Our experiments use small models (128-256 dim, 4 experts). Effects observed at 1.6T scale cannot be fully reproduced.
-- **Incomplete verification**: Only 5 of 66 atoms (8%) are independently verified. Many infrastructure claims (EP, deterministic kernels) remain untested.
+- **Incomplete verification**: Only 5 of 72 atoms (7%) are independently verified. Many infrastructure claims (EP, deterministic kernels) remain untested.
 - **Extraction subjectivity**: Atom decomposition involves judgment calls about claim boundaries and evidence relevance.
 
 ### 7.3 Broader Impact
@@ -548,7 +550,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 [4] DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. *arXiv:2501.12948*.
 
-[5] DeepSeek-AI. (2025). DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. Technical Report, DeepSeek-AI, 2025.
+[5] DeepSeek-AI. (2025). DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. Technical Report, DeepSeek-AI, 2025. \url{https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/resolve/main/DeepSeek_V4.pdf}
 
 [6] Zhu, D., et al. (2024). Hyper-Connections. *ICLR 2025. arXiv:2409.19606*.
 
