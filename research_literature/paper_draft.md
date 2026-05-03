@@ -41,6 +41,8 @@ V4: Think High/Max ←──────── R1: Emergent Reasoning
 V4: OPD Multi-Teacher ←──── R1: Distillation >> RL
 ```
 
+*(Note: "Think High/Max" refers to V4's three reasoning modes — Non-think, Think High, Think Max — formally defined in §3.6.)*
+
 ### 1.4 Contributions
 
 This paper makes three contributions:
@@ -437,7 +439,7 @@ Of 66 atoms in our graph:
 | Status | Count | Percentage |
 |--------|-------|------------|
 | ✅ Proven (independent verification) | 5 | 8% |
-| ⚠️ In Progress | 1 | 2% |
+| ⚠️ In Progress | 1 | 1% |
 | 📄 From Paper Only | 60 | 91% |
 
 The 5 verified atoms cover the most architecturally significant claims (FP4, KV cache, Muon, Sqrt(Softplus), SwiGLU). However, several important claims remain unverified:
@@ -495,7 +497,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 ### 7.3 Broader Impact
 
-**For LLM researchers**: Our scale-dependent stability finding has practical implications. Researchers attempting to reproduce frontier model techniques at smaller scale should be aware that some mechanisms (SwiGLU Clamping, Anticipatory Routing) may appear ineffective simply because the scale is insufficient. Conversely, techniques that work at small scale may not transfer to large scale without additional stabilization.
+**For LLM researchers**: Our scale-dependent stability hypothesis has practical implications. Researchers attempting to reproduce frontier model techniques at smaller scale should be aware that some mechanisms (SwiGLU Clamping, Anticipatory Routing) may appear ineffective simply because the scale is insufficient. Conversely, techniques that work at small scale may not transfer to large scale without additional stabilization.
 
 **For the research community**: The atom-graph methodology provides a structured alternative to traditional literature review. By making provenance explicit and gaps visible, it enables more efficient allocation of verification effort. We encourage other researchers to apply this methodology to frontier model papers.
 
@@ -520,7 +522,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 [4] DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. *arXiv:2501.12948*.
 
-[5] DeepSeek-AI. (2025). DeepSeek-V4 Technical Report. *DeepSeek Technical Report*.
+[5] DeepSeek-AI. (2025). DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. Technical Report, DeepSeek-AI, 2025.
 
 [6] Zhu, D., et al. (2024). Hyper-Connections. *ICLR 2025. arXiv:2409.19606*.
 
