@@ -8,6 +8,8 @@ Large language model technical reports are growing in complexity, making it diff
 
 **Keywords**: LLM analysis, Mixture-of-Experts, training stability, knowledge graphs, DeepSeek-V4
 
+**Note on experimental scope**: Our verification experiments use small-scale models (128-256 dim, 4 experts) rather than the full 1.6T-parameter V4 architecture. This is by design: we aim to identify which mechanisms are mathematically universal (FP4 quantization, Newton-Schulz convergence) versus which are strictly scale-dependent (SwiGLU Clamping, Anticipatory Routing). The small-scale experiments serve as existence proofs for mathematical properties, not as full reproductions of 1.6T training dynamics.
+
 ---
 
 ## 1. Introduction
@@ -49,7 +51,7 @@ This paper makes three contributions:
 
 2. **Empirical**: We conduct 5 independent verification experiments on DeepSeek-V4's key claims, confirming FP4 lossless dequantization, KV cache efficiency, Newton-Schulz convergence, Sqrt(Softplus) gradient properties, and SwiGLU Clamping activation behavior.
 
-3. **Scientific**: We discover that SwiGLU Clamping and Anticipatory Routing are **scale-dependent stability mechanisms** — ineffective at small scale (128-dim, 4 experts) but essential at 1.6T scale (7168-dim, 384 experts). This finding explains the training stability paradox: V3 (671B) trained with zero loss spikes, while V4 (1.6T) requires explicit stabilization despite being a more mature architecture.
+3. **Scientific**: We discover that SwiGLU Clamping and Anticipatory Routing are **scale-dependent stability mechanisms** — ineffective at small scale (128-dim, 4 experts) but essential at 1.6T scale (7168-dim, 384 experts). This finding explains the training stability paradox: V3 (671B) trained with zero loss spikes, while V4 (1.6T) requires explicit stabilization despite being a more mature architecture. Importantly, our experimental design distinguishes between mechanisms that are mathematically universal (verifiable at any scale) and those that are strictly scale-dependent (requiring 1B+ experiments for full validation).
 
 ### 1.5 Paper Organization
 
@@ -137,6 +139,14 @@ For this study, the atom graph contains:
 
 **Relation type distribution**: 25 motivates (20%), 38 derives (31%), 55 validates (45%), 3 formalizes (2%), 2 contradicts (2%).
 
+**Graph visualization**: Figure 1 shows the core architecture evolution subgraph, highlighting the V2→V3→R1→V4 derivation chains. Figure 2 shows the complete atom graph with all 66 atoms and 123 relations.
+
+![Figure 1: Core Architecture Evolution](atom_graph_core.png)
+*Figure 1: Core architecture evolution subgraph. Node colors indicate atom type (red=fact, teal=method, yellow=theorem, green=verification). Edge styles indicate relation type (dashed=motivates, solid=derives, dotted=validates).*
+
+![Figure 2: Complete Atom Graph](atom_graph_full.png)
+*Figure 2: Complete atom graph with 66 atoms and 123 relations. The graph reveals the dense interconnection between V4's innovations and their origins in V2, V3, and R1.*
+
 ### 2.6 Limitations of the Methodology
 
 The atom-graph approach has several limitations that should be acknowledged:
@@ -215,7 +225,7 @@ V4's post-training builds directly on R1's findings:
 
 $$\mathcal{L}_{\text{OPD}}(\theta) = \sum_{i=1}^N w_i \cdot D_{KL}(\pi_\theta \| \pi_{E_i})$$
 
-This extends R1's finding that distillation outperforms direct RL for smaller models, scaling the approach to a unified multi-domain system.
+where $N$ is the number of teacher models, $w_i$ is the weight for teacher $E_i$, $\pi_\theta$ is the student policy, and $\pi_{E_i}$ is the $i$-th teacher policy. The KL divergence is computed in the reverse direction ($\pi_\theta \| \pi_{E_i}$) to avoid the degenerate solution of the student concentrating on a single teacher mode.
 
 **Three Reasoning Modes**: Non-think (fast), Think High (logical analysis), Think Max (maximum reasoning). These formalize R1's observation of emergent adaptive CoT length — harder problems naturally receive more thinking tokens.
 
@@ -298,6 +308,8 @@ Scale ratio threshold scan confirms: r ≤ 4 maintains bitwise lossless; r > 4 i
 | V4-all10 (10×fast) | 0.337740 | ❌ Oscillates |
 
 Per-step analysis reveals the hybrid mechanism: fast phase (steps 1-8) rapidly reduces error to ~0.26, stable phase (steps 9-12) then converges cleanly to 0.
+
+**Mathematical intuition**: The fast coefficients $(3.4445, -4.7750, 2.0315)$ correspond to a higher-order polynomial approximation that converges aggressively when far from the orthogonal manifold. However, this aggressiveness becomes a liability near convergence: the high-order terms amplify small residuals, causing oscillation around the fixed point. The stable coefficients $(2, -1.5, 0.5)$ represent a more conservative third-order iteration that acts as a damper, absorbing the oscillation and ensuring monotonic convergence to the orthogonal polar factor.
 
 **Verdict**: ✅ **Confirmed**. The fast coefficients accelerate early convergence but are numerically unstable near convergence. The stable phase catches the overshoot, ensuring final orthogonalization.
 
