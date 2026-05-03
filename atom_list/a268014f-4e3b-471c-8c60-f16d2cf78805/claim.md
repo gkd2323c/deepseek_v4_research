@@ -1,0 +1,2 @@
+### Claim
+V2 Chat (RL) uses GRPO for preference alignment with a two-stage strategy: (1) Reasoning alignment with RM_reasoning for code/math; (2) Human preference alignment with multi-reward framework combining RM_helpful, RM_safety, and RM_rule. The RL training uses an online approach (significantly outperforms offline) with hybrid engine, vLLM inference backend, and CPU offloading scheduling.

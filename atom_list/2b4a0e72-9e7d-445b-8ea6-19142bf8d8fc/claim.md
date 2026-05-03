@@ -1,0 +1,2 @@
+### Claim
+DeepSeekMoE in V2 has 160 routed experts + 2 shared experts per layer, with 6 activated routed experts per token. Key mechanisms: (1) Fine-grained expert segmentation for higher specialization; (2) Device-limited routing — each token sent to at most M=3 devices out of D=8; (3) Three balance losses: expert-level ($\alpha_1=0.003$), device-level ($\alpha_2=0.05$), communication ($\alpha_3=0.02$); (4) Token-dropping with capacity factor 1.0, 10% sequences never dropped.

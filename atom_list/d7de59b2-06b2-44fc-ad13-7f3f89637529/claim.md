@@ -1,0 +1,2 @@
+### Claim
+MLA in V2 compresses keys and values jointly into a low-rank latent vector $c_t^{KV} \in \mathbb{R}^{d_c}$ via down-projection $W^{DKV}$. The KV cache per token is only $(d_c + d_h^R)l$ elements. For V2: $d_c=512$, $d_h^R=64$, $n_h=128$, $d_h=128$. Ablation shows MLA outperforms MHA with only 14% KV cache (small MoE) / 4% KV cache (large MoE). Decoupled RoPE solves the incompatibility between RoPE and low-rank compression by using separate queries/key for positional information.

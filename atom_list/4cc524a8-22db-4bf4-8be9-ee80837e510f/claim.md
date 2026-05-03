@@ -1,0 +1,2 @@
+### Claim
+V2 extends context from 4K to 128K using YaRN applied to the decoupled shared key $k_t^R$ (which carries RoPE). Parameters: scale $s=40$, $\alpha=1$, $\beta=32$, target max length 160K. Trained for 1000 steps at 32K sequence length with batch size 576. NIAH tests show robust performance across all context lengths up to 128K.

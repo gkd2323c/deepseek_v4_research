@@ -1,0 +1,2 @@
+### Evidence
+Section 2.2.1, Eq.(20)-(22): MoE computation with shared + routed experts. Section 2.2.2: Device-limited routing with M=3. Section 2.2.3, Eqs.(23)-(31): Three balance losses. Section 2.2.4: Token-dropping with capacity factor 1.0. Section 3.1.2: "160 routed experts, 2 shared experts, 6 activated." V2-Lite variant: 64 routed experts, 2 shared, 6 activated.

@@ -1,0 +1,2 @@
+### Evidence
+Section 4.2, Eq.(32)-(36): GRPO objective and two-stage RL strategy. "the online approach significantly outperforms the offline approach." Hybrid engine with different parallel strategies for training/inference. vLLM with large batch sizes. Near-optimal CPU offloading scheduling.

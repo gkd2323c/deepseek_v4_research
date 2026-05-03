@@ -1,0 +1,2 @@
+### Evidence
+Section 2.1.2, Eqs.(9)-(11): KV joint compression. Section 2.1.3, Eqs.(14)-(19): Decoupled RoPE strategy. Table 1: KV cache comparison — MLA equals GQA with 2.25 groups. Table 9: Ablation — Small MoE MLA 50.0 vs MHA 48.7 (MMLU) with 14% KV cache; Large MoE MLA 59.0 vs MHA 57.5 with 4% KV cache. Section 2.1.4: "MLA requires only a small amount of KV cache, equal to GQA with only 2.25 groups, but can achieve stronger performance than MHA."

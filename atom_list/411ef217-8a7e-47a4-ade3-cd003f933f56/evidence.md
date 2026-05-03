@@ -1,0 +1,2 @@
+### Evidence
+Section 3.2.3: "DeepSeek 67B requires 300.6K GPU hours, while DeepSeek-V2 needs only 172.8K GPU hours, i.e., sparse DeepSeek-V2 can save 42.5% training costs." "DeepSeek-V2 achieves a generation throughput exceeding 50K tokens per second, which is 5.76 times the maximum generation throughput of DeepSeek 67B." Section 3.1.3: 16-way zero-bubble PP, 8-way EP, ZeRO-1, no TP.

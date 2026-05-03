@@ -1,0 +1,2 @@
+### Claim
+V2 achieves 42.5% training cost reduction vs DeepSeek 67B (172.8K vs 300.6K GPU hours per trillion tokens), 93.3% KV cache reduction, and 5.76x maximum generation throughput. Training uses 16-way zero-bubble pipeline parallelism, 8-way expert parallelism, ZeRO-1, no tensor parallelism. Overlaps shared expert computation with all-to-all communication.

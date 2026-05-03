@@ -1,0 +1,2 @@
+### Evidence
+Section 3.1.4: YaRN applied to $k_t^R$ with parameters $s=40$, $\alpha=1$, $\beta=32$, target 160K. "we additionally train the model for 1000 steps, with a sequence length of 32K and a batch size of 576 sequences." Figure 4: NIAH results showing strong performance across 1K-128K.
