@@ -13,13 +13,13 @@
      └── 8 其他引用 (V2/V3/R1/Hash/AttnSink)
 ```
 
-✅ 2 atoms proven by independent verification
+✅ 3 atoms proven by independent verification
 
 ### 核心研究问题
 
 1. **混合注意力机制（CSA + HCA）** 能否真正实现论文声称的 FLOPs/KV Cache 效率？→ ✅ **KV Cache 分析已验证** (7.2% vs 论文 10%)
 2. **FP4 QAT "Lossless Dequantization"** 在什么条件下成立？→ ✅ **已验证** (同 scale: 100% bitwise lossless)
-3. **Muon 混合 Newton-Schulz 迭代** 是否比标准方案收敛更快？→ 🔲 待验证 (Plan 03)
+3. **Muon 混合 Newton-Schulz 迭代** 是否比标准方案收敛更快？→ ✅ **已验证** (8fast+2stable 快速收敛，前期速度优于 NS-3)
 4. **SwiGLU Clamping + Anticipatory Routing** 在 MoE 训练中的稳定性效果是否可复现？→ 🔲 待验证 (Plan 04/05)
 
 ## 项目结构
@@ -146,7 +146,7 @@ V3: Zero Spike ──contradicts──→ V4: Stability Challenges
 |--------|------|----------|------|------|
 | 🔴 P1 | FLOPs/KV Cache 理论验证 | `b390dc6d` | ⭐⭐ | ✅ proven |
 | 🔴 P2 | FP4 Lossless 数值验证 | `aaf732a0` | ⭐ | ✅ proven |
-| 🔴 P3 | Muon Newton-Schulz 收敛 | `738e20ee` | ⭐⭐ | 🔲 pending |
+| 🔴 P3 | Muon Newton-Schulz 收敛 | `738e20ee` | ⭐⭐ | ✅ proven |
 | 🟡 P4 | SwiGLU Clamping 消融 | `9286d65b` | ⭐⭐⭐ | 🔲 pending |
 | 🟡 P5 | Anticipatory Routing | `c9184e5d` | ⭐⭐⭐⭐ | 🔲 pending |
 

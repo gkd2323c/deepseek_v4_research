@@ -2,7 +2,7 @@
 
 > 更新日期: 2026-05-03
 > 基于: DeepSeek-V4 Technical Report (db9fa857)
-> 当前原子数: 49 | 关系数: 80 | 已验证: 2/5
+> 当前原子数: 49 | 关系数: 80 | 已验证: 3/5
 
 ---
 
@@ -14,7 +14,7 @@
 |---|---|---|---|---|
 | 1 | [plan_01_flops_kvcache.md](plan_01_flops_kvcache.md) | V4 效率 (KV Cache) — `b390dc6d` | ⭐⭐ | ✅ proven |
 | 2 | [plan_02_fp4_lossless.md](plan_02_fp4_lossless.md) | FP4→FP8 Lossless — `aaf732a0` | ⭐ | ✅ proven |
-| 3 | [plan_03_muon_newton_schulz.md](plan_03_muon_newton_schulz.md) | Muon Newton-Schulz — `738e20ee` | ⭐⭐ | 🔲 pending |
+| 3 | [plan_03_muon_newton_schulz.md](plan_03_muon_newton_schulz.md) | Muon Newton-Schulz — `738e20ee` | ⭐⭐ | ✅ proven |
 | 4 | [plan_04_swiglu_clamping.md](plan_04_swiglu_clamping.md) | SwiGLU Clamping — `9286d65b` | ⭐⭐⭐ | 🔲 pending |
 | 5 | [plan_05_anticipatory_routing.md](plan_05_anticipatory_routing.md) | Anticipatory Routing — `c9184e5d` | ⭐⭐⭐⭐ | 🔲 pending |
 
