@@ -1,6 +1,6 @@
 # DeepSeek-V4 Research Project
 
-基于 [OpenResearch](https://github.com/anthropics/openresearch) 框架，对 **DeepSeek-V4 Technical Report** 的结构化研究分析。将论文拆解为可独立检验的 **原子（claim + evidence）**，构建研究知识图谱，并设计独立验证实验方案。
+基于 [OpenResearch]() 框架，对 **DeepSeek-V4 Technical Report** 的结构化研究分析。将论文拆解为可独立检验的 **原子（claim + evidence）**，构建研究知识图谱，并设计独立验证实验方案。
 
 ## 项目概览
 
