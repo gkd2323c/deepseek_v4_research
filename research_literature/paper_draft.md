@@ -4,11 +4,9 @@
 
 ## Abstract
 
-Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **66 atoms and 123 relations** spanning 8 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. Our key finding is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — ineffective at small scale but essential at 1.6T, explaining why DeepSeek-V3 (671B) required none of these while V4 (1.6T) requires all three.
+Large language model technical reports are growing in complexity, making it difficult to assess which claims are well-supported and which require independent verification. We propose an **atom-graph driven** approach that decomposes research papers into minimal, inspectable `claim + evidence` units linked by typed relations, enabling systematic provenance tracking and gap identification. Applying this methodology to DeepSeek-V4 — a 1.6T-parameter Mixture-of-Experts model supporting 1M-token context — we construct a knowledge graph of **66 atoms and 123 relations** spanning 8 papers, with complete origin tracing from DeepSeek-V2 through V3 and R1 to V4. We conduct **5 independent verification experiments** confirming: (1) FP4-to-FP8 dequantization is bitwise lossless under scale ratio constraints; (2) KV cache efficiency achieves order-of-magnitude reduction (~7% of V3.2 MLA); (3) the hybrid Newton-Schulz (8+2) scheme converges where alternatives oscillate; (4) Sqrt(Softplus) maintains non-vanishing gradients for MoE routing where Sigmoid fails; and (5) SwiGLU Clamping acts as a safety net above normal activation ranges. These 5 verified atoms represent 8% of the total graph; the remaining 92% rely on the paper's own evidence and await independent confirmation. Our key hypothesis is that **Sqrt(Softplus) activation, SwiGLU Clamping, and Anticipatory Routing are scale-dependent stability mechanisms** — our small-scale experiments show no effect, while the paper reports them as essential at 1.6T, suggesting they may only manifest at billion-parameter scale.
 
 **Keywords**: LLM analysis, Mixture-of-Experts, training stability, knowledge graphs, DeepSeek-V4
-
-**Note on experimental scope**: Our verification experiments use small-scale models (128-256 dim, 4 experts) rather than the full 1.6T-parameter V4 architecture. This is by design: we aim to identify which mechanisms are mathematically universal (FP4 quantization, Newton-Schulz convergence) versus which are strictly scale-dependent (SwiGLU Clamping, Anticipatory Routing). The small-scale experiments serve as existence proofs for mathematical properties, not as full reproductions of 1.6T training dynamics.
 
 ---
 
@@ -51,7 +49,7 @@ This paper makes three contributions:
 
 2. **Empirical**: We conduct 5 independent verification experiments on DeepSeek-V4's key claims, confirming FP4 lossless dequantization, KV cache efficiency, Newton-Schulz convergence, Sqrt(Softplus) gradient properties, and SwiGLU Clamping activation behavior.
 
-3. **Scientific**: We discover that SwiGLU Clamping and Anticipatory Routing are **scale-dependent stability mechanisms** — ineffective at small scale (128-dim, 4 experts) but essential at 1.6T scale (7168-dim, 384 experts). This finding explains the training stability paradox: V3 (671B) trained with zero loss spikes, while V4 (1.6T) requires explicit stabilization despite being a more mature architecture. Importantly, our experimental design distinguishes between mechanisms that are mathematically universal (verifiable at any scale) and those that are strictly scale-dependent (requiring 1B+ experiments for full validation).
+3. **Hypothesis**: We identify that SwiGLU Clamping and Anticipatory Routing are likely **scale-dependent stability mechanisms** — our small-scale experiments (128-dim, 4 experts) show no effect, while the paper reports them as essential at 1.6T scale (7168-dim, 384 experts). This scale-dependent hypothesis, if confirmed at 1B+ scale, would explain the training stability paradox: V3 (671B) trained with zero loss spikes, while V4 (1.6T) requires explicit stabilization. We frame this as a hypothesis rather than a confirmed finding because the critical large-scale validation remains pending.
 
 ### 1.5 Paper Organization
 
@@ -177,6 +175,15 @@ V4 is not a standalone design but the latest step in a systematic evolution:
 
 **DeepSeek-V4** (1.6T, 2025) builds on all predecessors: replacing MLA with CSA/HCA, introducing mHC, adopting the Muon optimizer, and adding scale-dependent stability mechanisms.
 
+**Summary of evolution**:
+
+| Generation | Parameters | Key Innovations | Training Stability | Context |
+|------------|-----------|-----------------|-------------------|---------|
+| V2 (2024) | 236B (21B active) | MLA, DeepSeekMoE, GRPO | Not reported | 128K |
+| V3 (2024) | 671B (37B active) | Aux-Loss-Free, MTP, FP8 | Zero spikes | 128K |
+| R1 (2025) | 671B base | Pure RL reasoning, Distillation | N/A (post-training) | 128K |
+| V4 (2025) | 1.6T (49B active) | CSA/HCA, mHC, Muon, AR+Clamping | Requires stabilization | 1M |
+
 ### 3.2 Mixed Attention: CSA + HCA
 
 V4's attention mechanism replaces V3's MLA with two complementary architectures:
@@ -227,7 +234,12 @@ $$\mathcal{L}_{\text{OPD}}(\theta) = \sum_{i=1}^N w_i \cdot D_{KL}(\pi_\theta \|
 
 where $N$ is the number of teacher models, $w_i$ is the weight for teacher $E_i$, $\pi_\theta$ is the student policy, and $\pi_{E_i}$ is the $i$-th teacher policy. The KL divergence is computed in the reverse direction ($\pi_\theta \| \pi_{E_i}$) to avoid the degenerate solution of the student concentrating on a single teacher mode.
 
-**Three Reasoning Modes**: Non-think (fast), Think High (logical analysis), Think Max (maximum reasoning). These formalize R1's observation of emergent adaptive CoT length — harder problems naturally receive more thinking tokens.
+**Three Reasoning Modes**: V4 introduces three distinct reasoning modes that formalize R1's observation of emergent adaptive CoT length:
+- **Non-think**: Fast, intuitive responses without explicit reasoning chains (8K context window)
+- **Think High**: Conscious logical analysis with structured reasoning (128K context window)
+- **Think Max**: Maximum reasoning depth with interleaved thinking across tool-call rounds (384K context window)
+
+These modes allow users to trade off between response speed and reasoning depth, with harder problems naturally receiving more thinking tokens in Think Max mode.
 
 ---
 
@@ -256,6 +268,8 @@ All experiments follow a consistent framework:
 - Pure Python implementations for CPU-only experiments
 
 **Reproducibility**: All experiment scripts are available in the `experiments/` directory. Random seeds are fixed at 42, 100, 200, 300 for multi-seed experiments. No external datasets are used; all experiments use synthetic data generated from specified distributions.
+
+**Note on experimental scope**: Our verification experiments use small-scale models (128-256 dim, 4 experts) rather than the full 1.6T-parameter V4 architecture. This is by design: we aim to identify which mechanisms are mathematically universal (FP4 quantization, Newton-Schulz convergence) versus which are strictly scale-dependent (SwiGLU Clamping, Anticipatory Routing). The small-scale experiments serve as existence proofs for mathematical properties, not as full reproductions of 1.6T training dynamics.
 
 ### 4.2 Plan 02: FP4 Lossless Dequantization
 
@@ -368,7 +382,7 @@ The verification experiments in Section 4 confirm several of V4's claims while r
 
 ### 5.1 Scale-Dependent Stability Mechanisms
 
-Our central finding is that **SwiGLU Clamping and Anticipatory Routing are scale-dependent safety mechanisms**:
+Our central **hypothesis** is that **SwiGLU Clamping and Anticipatory Routing are scale-dependent safety mechanisms**:
 
 **At small scale** (128-dim, 4 experts, ~100M parameters):
 - Activation values range from 7-8, well below the clamping threshold of 10
@@ -414,15 +428,7 @@ Distinguishing between these factors requires controlled ablation experiments at
 
 ### 5.4 Evolution of Attention Efficiency
 
-Each DeepSeek generation achieves order-of-magnitude KV cache reduction:
-
-| Generation | Mechanism | KV Cache Reduction |
-|------------|-----------|-------------------|
-| V2 | MLA (low-rank latent) | 93.3% vs MHA |
-| V3 | MLA inherited | Same as V2 |
-| V4 | CSA/HCA (compressed attention) | ~93% vs V3 MLA |
-
-This suggests a pattern: each generation introduces a fundamentally new compression approach rather than incrementally optimizing the previous one.
+Each DeepSeek generation achieves order-of-magnitude KV cache reduction. V2's MLA reduced KV cache by 93.3% versus multi-head attention. V3 inherited MLA unchanged. V4's CSA/HCA achieves a further ~93% reduction versus V3 MLA (detailed analysis in Section 4.3). This suggests a pattern: each generation introduces a fundamentally new compression approach rather than incrementally optimizing the previous one.
 
 ### 5.5 Verification Gap Analysis
 
@@ -465,7 +471,7 @@ Loss spikes during large-scale training are a well-documented phenomenon (Zhang 
 
 ### 6.4 Research Paper Analysis
 
-Prior work on systematic research analysis includes citation network analysis (Kipf & Welling, 2017), claim extraction (Wei et al., 2020), and evidence verification (Thorne et al., 2018). Our atom-graph approach differs by operating at the level of individual scientific claims with typed relations, enabling fine-grained provenance tracking that citation graphs cannot provide.
+Prior work on systematic research analysis includes scientific knowledge graph construction (Auer et al., 2023), claim extraction from research papers (Wei et al., 2020), and evidence verification (Thorne et al., 2018). Our atom-graph approach differs by operating at the level of individual scientific claims with typed relations, enabling fine-grained provenance tracking that citation graphs or knowledge graphs cannot provide.
 
 ---
 
@@ -479,7 +485,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 2. **Independent verification**: 5 experiments confirm FP4 lossless dequantization, KV cache efficiency, Newton-Schulz convergence, Sqrt(Softplus) gradient properties, and SwiGLU Clamping activation behavior.
 
-3. **Scale-dependent stability**: SwiGLU Clamping and Anticipatory Routing are safety mechanisms that only activate at 1.6T scale, explaining the V3/V4 stability paradox.
+3. **Scale-dependent stability hypothesis**: SwiGLU Clamping and Anticipatory Routing appear to be safety mechanisms that only activate at 1.6T scale, explaining the V3/V4 stability paradox. This hypothesis awaits confirmation at 1B+ scale.
 
 ### 7.2 Limitations
 
@@ -495,7 +501,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 **For open science**: Our complete codebase, atom graph, and verification experiments are publicly available. This enables reproducibility and allows others to extend our analysis with additional papers or experiments.
 
-### 7.5 Future Work
+### 7.4 Future Work
 
 1. **Scale-up experiments**: Conduct 1B+ scale training to verify AR and SwiGLU Clamping under realistic conditions
 2. **Cross-model analysis**: Apply atom-graph methodology to GPT-5, Gemini, and Claude for comparative analysis
@@ -512,9 +518,9 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 [3] DeepSeek-AI. (2024). DeepSeek-V3 Technical Report. *arXiv:2412.19437*.
 
-[4] DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. *Nature 645*.
+[4] DeepSeek-AI. (2025). DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning. *arXiv:2501.12948*.
 
-[5] DeepSeek-AI. (2025). DeepSeek-V4 Technical Report. *arXiv*.
+[5] DeepSeek-AI. (2025). DeepSeek-V4 Technical Report. *DeepSeek Technical Report*.
 
 [6] Zhu, D., et al. (2024). Hyper-Connections. *ICLR 2025. arXiv:2409.19606*.
 
@@ -542,7 +548,7 @@ We presented an atom-graph driven methodology for systematic research paper anal
 
 [18] Child, R., et al. (2019). Generating Long Sequences with Sparse Transformers. *arXiv:1904.10509*.
 
-[19] Kipf, T., & Welling, M. (2017). Semi-Supervised Classification with Graph Convolutional Networks. *ICLR*.
+[19] Auer, S., et al. (2023). Towards an Open Research Knowledge Graph. *International Journal on Digital Libraries*.
 
 [20] Wei, J., et al. (2020). Neural Natural Language Inference Models Partially Embed Theories of Lexical Pragmatics. *EMNLP*.
 
