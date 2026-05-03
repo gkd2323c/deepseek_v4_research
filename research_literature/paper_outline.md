@@ -8,7 +8,7 @@
 
 - **Problem**: Large language model technical reports are dense, making it difficult to assess which claims are well-supported and which need independent verification.
 - **Method**: We propose an atom-graph driven approach to decompose research papers into minimal, inspectable claim+evidence units, linked by typed relations (motivates, derives, validates, formalizes, contradicts).
-- **Application**: Applied to DeepSeek-V4 (1.6T MoE model) with 7 reference papers, constructing 66 atoms and 123 relations.
+- **Application**: Applied to DeepSeek-V4 (1.6T MoE model) with 7 reference papers, constructing 72 atoms and 123 relations.
 - **Key Results**: 5 independent verification experiments confirm FP4 lossless dequantization, KV cache efficiency, Muon Newton-Schulz convergence, Sqrt(Softplus) gradient properties, and SwiGLU Clamping activation behavior.
 - **Novel Finding**: SwiGLU Clamping and Anticipatory Routing are scale-dependent safety mechanisms — ineffective at small scale but essential at 1.6T, explaining why V3 (671B) needed neither while V4 (1.6T) requires both.
 
@@ -56,9 +56,9 @@ Paper → Parse → Extract Atoms → Build Relations → Identify Gaps → Veri
 ```
 
 ### 2.4 Graph Statistics for This Study
-- 66 atoms (8 fact, 40 method, 1 theorem, 17 verification)
+- 72 atoms (10 fact, 44 method, 1 theorem, 17 verification)
 - 123 relations (25 motivates, 38 derives, 55 validates, 3 formalizes, 2 contradicts)
-- 8 papers (5 full-text parsed, 2 abstract-level, 1 main paper)
+- 10 papers (5 full-text parsed, 2 abstract-level, 1 main paper)
 
 ---
 
@@ -317,7 +317,7 @@ Each generation achieves order-of-magnitude KV cache reduction while maintaining
 ## Appendix
 
 ### A. Atom Graph Statistics
-- Full list of 66 atoms with types and evidence status
+- Full list of 72 atoms with types and evidence status
 - Complete relation table (123 relations)
 - Graph visualization
 
@@ -327,7 +327,7 @@ Each generation achieves order-of-magnitude KV cache reduction while maintaining
 - Hardware/software environment specifications
 
 ### C. Reference Paper Coverage
-- List of 8 papers with parsing depth
+- List of 10 papers with parsing depth
 - Key atoms extracted from each paper
 - Cross-reference relation mapping
 

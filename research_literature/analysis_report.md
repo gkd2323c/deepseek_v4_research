@@ -1,8 +1,8 @@
 # DeepSeek-V4 综合研究分析报告
 
 > **日期**: 2026-05-03 (更新)
-> **基于**: DeepSeek-V4 Technical Report + 7 篇核心参考文献
-> **图规模**: 66 atoms · 123 relations · 5 proven · 0 orphans
+> **基于**: DeepSeek-V4 Technical Report + 10 篇核心参考文献
+> **图规模**: 72 atoms · 123 relations · 5 proven · 0 orphans
 > **验证状态**: 5/5 方案已执行，5 项声明独立验证通过
 
 ---
